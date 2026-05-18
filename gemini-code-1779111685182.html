@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POLIZEIDIREKTION WALDVILLA - ERMITTLUNGS-DATENBANK</title>
+    <style>
+        /* Offizielles, behördliches Polizei-Design (Clean & Steril) */
+        :root {
+            --bg-color: #f4f6f9;
+            --panel-bg: #ffffff;
+            --primary-dir: #1a365d; /* Dunkelblau für Behörden */
+            --accent-red: #c53030;  /* Warn-Rot für "Streng Geheim" */
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --border-color: #cbd5e0;
+            --input-bg: #edf2f7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* Hauptcontainer */
+        .terminal-container {
+            width: 100%;
+            max-width: 950px;
+            height: 85vh;
+            background-color: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Oberer Balken (Behörden-Header) */
+        .terminal-header {
+            background-color: var(--primary-dir);
+            color: white;
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 3px solid var(--accent-red);
+        }
+
+        .terminal-title {
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .security-badge {
+            background-color: var(--accent-red);
+            color: white;
+            font-size: 11px;
+            font-weight: bold;
+            padding: 4px 8px;
+            border-radius: 2px;
+            letter-spacing: 1px;
+        }
+
+        /* Screen-Umschalter */
+        .screen {
+            flex: 1;
+            display: none;
+            padding: 40px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* LOGIN SCREEN DESIGN */
+        .login-box {
+            max-width: 450px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+            padding: 30px;
+            background-color: #f7fafc;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        .login-header-text {
+            color: var(--primary-dir);
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .login-instructions {
+            color: var(--text-muted);
+            margin-bottom: 25px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .terminal-input {
+            width: 100%;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            padding: 12px;
+            color: var(--text-main);
+            font-size: 15px;
+            outline: none;
+            border-radius: 3px;
+            transition: border-color 0.2s;
+        }
+
+        .terminal-input:focus {
+            border-color: var(--primary-dir);
+        }
+
+        .terminal-button {
+            background-color: var(--primary-dir);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            text-transform: uppercase;
+            width: 100%;
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+
+        .terminal-button:hover {
+            background-color: #2b4c7e;
+        }
+
+        .error-message {
+            color: var(--accent-red);
+            margin-top: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            height: 15px;
+            visibility: hidden;
+        }
+
+        /* ERMITTLUNGS-AKTEN SCREEN DESIGN */
+        .main-screen {
+            justify-content: flex-start !important;
+            align-items: stretch !important;
+            padding: 30px;
+        }
+
+        /* Metadaten-Block wie im Dokument */
+        .metadata-panel {
+            background-color: #edf2f7;
+            border-left: 4px solid var(--primary-dir);
+            padding: 15px 20px;
+            margin-bottom: 25px;
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-main);
+        }
+
+        .metadata-grid {
+            display: grid;
+            grid-template-columns: 150px 1fr;
+            gap: 5px 10px;
+        }
+
+        .metadata-label {
+            font-weight: bold;
+            color: var(--primary-dir);
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .search-input {
+            border: 1px solid var(--border-color);
+        }
+
+        .search-btn {
+            width: auto;
+            padding: 0 30px;
+        }
+
+        /* Ausgabe im Stil einer gedruckten Akte */
+        .output-panel {
+            flex: 1;
+            border: 1px solid var(--border-color);
+            background-color: #fafafa;
+            border-radius: 3px;
+            padding: 25px;
+            overflow-y: auto;
+            min-height: 200px;
+        }
+
+        .output-placeholder {
+            color: var(--text-muted);
+            font-style: italic;
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+        }
+
+        /* Strukturierte Bericht-Ausgabe */
+        .system-response {
+            animation: fadeIn 0.3s ease-out forwards;
+            color: #1a202c;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .response-header {
+            color: var(--primary-dir);
+            font-weight: bold;
+            font-size: 15px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--primary-dir);
+            padding-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .response-section {
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 3px;
+        }
+
+        .response-label {
+            font-weight: bold;
+            color: var(--primary-dir);
+            margin-bottom: 6px;
+            display: block;
+            text-transform: uppercase;
+            font-size: 12px;
+            letter-spacing: 0.5px;
+        }
+
+        .response-value {
+            color: var(--text-main);
+        }
+
+        /* System-Fehlermeldung im Aktenstil */
+        .system-error-box {
+            border: 1px dashed var(--accent-red);
+            background-color: #fff5f5;
+            padding: 20px;
+            border-radius: 3px;
+            color: #9b2c2c;
+        }
+
+        /* Unterer Info-Balken */
+        .terminal-footer {
+            padding: 12px 25px;
+            background-color: #edf2f7;
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            color: var(--text-muted);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-container">
+        <div class="terminal-header">
+            <div class="terminal-title">POLIZEIDIREKTION WALDVILLA // DIGITALES ASSERVATEN-REGISTER</div>
+            <div class="security-badge">NUR FÜR DIENSTSTELLE // STRENG GEHEIM</div>
+        </div>
+
+        <div class="screen active" id="login-screen">
+            <div class="login-box">
+                <div class="login-header-text">System-Authentifizierung</div>
+                <p class="login-instructions">
+                    Zentrales Forensik- und Labornetzwerk der SOKO „Waldvilla“.<br>
+                    Der Zugriff ist nur autorisiertem Personal gestattet.
+                </p>
+                <div class="input-group">
+                    <input type="password" id="password-field" class="terminal-input" placeholder="Geben Sie den Autorisierungscode ein..." autofocus>
+                </div>
+                <button class="terminal-button" onclick="tryLogin()">System entsperren</button>
+                <div class="error-message" id="login-error">ZUGRIFF VERWEIGERT: Ungültige Dienstkennung / Passwort.</div>
+            </div>
+        </div>
+
+        <div class="screen main-screen" id="main-screen">
+            <div class="metadata-panel">
+                <div class="metadata-grid">
+                    <div class="metadata-label">Dienststelle:</div>
+                    <div>Polizeidirektion Waldvilla // Kriminalhauptkommissariat</div>
+                    <div class="metadata-label">Fall-Zugehörigkeit:</div>
+                    <div>Sonderkommission SOKO „Waldvilla“</div>
+                    <div class="metadata-label">System-Status:</div>
+                    <div>Abfrage-Modul aktiv | Authentifiziert als Sondereinheit</div>
+                    <div class="metadata-label">Aktuelle Zeit:</div>
+                    <div id="current-date">-</div>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <input type="text" id="search-field" class="terminal-input search-input" placeholder="Geben Sie die Asservat-Nummer oder den Spurentyp ein...">
+                <button class="terminal-button search-btn" onclick="executeSearch()">Daten abrufen</button>
+            </div>
+
+            <div class="output-panel" id="output-panel">
+                <div class="output-placeholder">
+                    System bereit für Abfrage.<br>
+                    Nutzen Sie spezifische Kennungen oder Spurentypen (z.B. „Asservat 3“ oder „Toxikologie“).
+                </div>
+            </div>
+        </div>
+
+        <div class="terminal-footer">
+            <span>STATUS: VERBINDUNG VERSCHLÜSSELT (SSL)</span>
+            <span>POLIZEIDIREKTION WALDVILLA © 2026</span>
+        </div>
+    </div>
+
+    <script>
+        // Passwort-Konfiguration
+        const GLOBAL_PASSWORD = "18.05.2026_Waldvilla";
+
+        // Datenbank-Matrix (Einträge aus dem echten Polizeibericht)
+        const forensicDatabase = {
+            "laborbericht zu asservat 3": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: TOXIKOLOGISCHES GUTACHTEN ASS_03 &lt;&lt;</div>
+                    
+                    <div class="response-section">
+                        <span class="response-label">Untersuchungstyp:</span>
+                        <span class="response-value">Toxikologische Analyse und Blutuntersuchung des Leichnams</span>
+                    </div>
+                    
+                    <div class="response-section">
+                        <span class="response-label">Ergebnis:</span>
+                        <span class="response-value">Im Blut des Opfers konnten <em>keine</em> Spuren von Fremdstoffen, Giften oder Überdosierungen nachgewiesen werden. Allerdings war der Spiegel seines lebenswichtigen Herzmedikaments kritisch niedrig, wie wenn die Abend-Dosis nicht eingenommen wurde.</span>
+                    </div>
+                    
+                    <div class="response-section">
+                        <span class="response-label">Todesursache:</span>
+                        <span class="response-value">Der biologische Tod trat durch ein <strong>akutes, massives Herzversagen (Herzinfarkt)</strong> ein. Der Infarkt führte zu einem sofortigen Bewusstseinsverlust, woraufhin das Opfer ungebremst vorwärts stürzte und mit dem Kopf auf dem Beton-/Steinsockel aufschlug. Dieser Sturz zerschmetterte die Taschenuhr exakt im Moment des Aufpralls.</span>
+                    </div>
+                </div>
+            `,
+            // Aliase (Suchbegriff-Varianten für denselben Bericht)
+            "toxikologie leiche": "ALIAS:laborbericht zu asservat 3",
+            "blutuntersuchung opfer": "ALIAS:laborbericht zu asservat 3",
+            "asservat 3": "ALIAS:laborbericht zu asservat 3",
+            "toxikologie": "ALIAS:laborbericht zu asservat 3"
+        };
+
+        // Uhrzeit-Aktualisierung
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('current-date').innerText = now.toLocaleString('de-DE');
+        }
+        setInterval(updateClock, 1000);
+
+        // Login-Logik
+        function tryLogin() {
+            const passwordInput = document.getElementById('password-field').value;
+            const errorDiv = document.getElementById('login-error');
+            
+            if (passwordInput === GLOBAL_PASSWORD) {
+                document.getElementById('login-screen').classList.remove('active');
+                document.getElementById('main-screen').classList.add('active');
+                updateClock();
+                setTimeout(() => { document.getElementById('search-field').focus(); }, 100);
+            } else {
+                errorDiv.style.visibility = 'visible';
+                document.getElementById('password-field').value = '';
+            }
+        }
+
+        // Enter-Taste im Login-Feld abfangen
+        document.getElementById('password-field').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') tryLogin();
+        });
+
+        // Such-Logik
+        function executeSearch() {
+            const searchField = document.getElementById('search-field');
+            let query = searchField.value.trim().toLowerCase();
+            const outputPanel = document.getElementById('output-panel');
+            
+            if (!query) return;
+
+            // Simulierter Ladeeffekt für behördliche Trägheit
+            outputPanel.innerHTML = '<div class="output-placeholder">Verbinde mit Zentralregister... Bitte warten...</div>';
+            
+            setTimeout(() => {
+                if (forensicDatabase.hasOwnProperty(query)) {
+                    let result = forensicDatabase[query];
+                    
+                    // Verweis auflösen, wenn es ein Alias ist
+                    if (result.startsWith("ALIAS:")) {
+                        const targetKey = result.replace("ALIAS:", "");
+                        result = forensicDatabase[targetKey];
+                    }
+                    
+                    outputPanel.innerHTML = result;
+                } else {
+                    // Fehler im Aktenstil ausgeben
+                    outputPanel.innerHTML = `
+                        <div class="system-response system-error-box">
+                            <div class="response-header" style="color: #9b2c2c; border-color: #9b2c2c;">[SYS-ERR: KEIN AKTENFUND]</div>
+                            <p>Die Suchabfrage nach „<strong>\${searchField.value}</strong>“ verlief im aktuellen Systemregister negativ.</p>
+                            <p style="margin-top: 10px; font-size: 12px; color: #718096;">
+                                Mögliche Ursachen: Keine Freigabe für diese Soko-Stufe oder unvollständige Kennung. Überprüfen Sie den Spurentyp (z.B. „Toxikologie“).
+                            </p>
+                        </div>
+                    `;
+                }
+            }, 600); // 600ms künstliche Verzögerung
+        }
+
+        // Enter-Taste im Such-Feld abfangen
+        document.getElementById('search-field').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') executeSearch();
+        });
+    </script>
+</body>
+</html>

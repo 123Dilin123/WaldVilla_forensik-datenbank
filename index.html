@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KREISPOLIZEIBEHÖRDE - FORENSIK-DATENBANK</title>
+    <style>
+        /* Modern Cyber/Police Terminal Theme */
+        :root {
+            --bg-color: #0a0f1d;
+            --terminal-bg: #0d1527;
+            --accent-color: #00d2ff;
+            --accent-dim: #005f73;
+            --text-color: #e2f1f7;
+            --text-dim: #7092a5;
+            --error-color: #ff3366;
+            --success-color: #00ff66;
+            --border-color: #1a2942;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+        }
+
+        /* Ambient scanline effect for terminal immersion */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            opacity: 0.4;
+            pointer-events: none;
+            background-size: 100% 4px, 6px 100%;
+        }
+
+        /* Container styling */
+        .terminal-container {
+            width: 100%;
+            max-width: 900px;
+            height: 85vh;
+            background-color: var(--terminal-bg);
+            border: 2px solid var(--accent-dim);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.15);
+            border-radius: 4px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Header / Top Bar */
+        .terminal-header {
+            background-color: #111a30;
+            border-bottom: 2px solid var(--border-color);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .terminal-title {
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+            text-transform: uppercase;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--success-color);
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+            box-shadow: 0 0 8px var(--success-color);
+        }
+
+        .status-text {
+            font-size: 12px;
+            color: var(--text-dim);
+        }
+
+        /* Screens switcher style */
+        .screen {
+            flex: 1;
+            display: none;
+            padding: 40px;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* LOGIN SCREEN STYLES */
+        .login-box {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .login-badge {
+            font-size: 50px;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+            text-shadow: 0 0 10px rgba(0, 210, 255, 0.5);
+        }
+
+        .login-instructions {
+            color: var(--text-dim);
+            margin-bottom: 25px;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .terminal-input {
+            width: 100%;
+            background-color: rgba(10, 15, 29, 0.6);
+            border: 1px solid var(--accent-dim);
+            padding: 14px;
+            color: var(--text-color);
+            font-size: 15px;
+            text-align: center;
+            outline: none;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .terminal-input:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(0, 210, 255, 0.3);
+        }
+
+        .terminal-button {
+            background-color: var(--accent-dim);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 14px;
+            cursor: pointer;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+            width: 100%;
+            border-radius: 2px;
+        }
+
+        .terminal-button:hover {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(0, 210, 255, 0.4);
+            color: #000;
+        }
+
+        .error-message {
+            color: var(--error-color);
+            margin-top: 15px;
+            font-size: 12px;
+            height: 15px;
+            visibility: hidden;
+        }
+
+        /* MAIN TERMINAL SCREEN STYLES */
+        .main-screen {
+            justify-content: flex-start !important;
+            align-items: stretch !important;
+            padding: 25px;
+        }
+
+        .welcome-panel {
+            margin-bottom: 20px;
+            font-size: 13px;
+            color: var(--text-dim);
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 15px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .search-input {
+            text-align: left;
+        }
+
+        .search-btn {
+            width: auto;
+            padding: 0 25px;
+        }
+
+        .output-panel {
+            flex: 1;
+            background-color: rgba(10, 15, 29, 0.8);
+            border: 1px solid var(--border-color);
+            border-radius: 2px;
+            padding: 20px;
+            overflow-y: auto;
+            min-height: 200px;
+        }
+
+        /* Text output animations & formats */
+        .output-placeholder {
+            color: var(--text-dim);
+            font-style: italic;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .system-response {
+            animation: fadeIn 0.4s ease-out forwards;
+            line-height: 1.6;
+        }
+
+        .response-header {
+            color: var(--accent-color);
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--accent-dim);
+            padding-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .response-section {
+            margin-bottom: 18px;
+        }
+
+        .response-label {
+            font-weight: bold;
+            color: #fff;
+            text-decoration: underline;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .response-value {
+            color: var(--text-color);
+        }
+
+        /* Help notice at the bottom */
+        .terminal-footer {
+            padding: 10px 25px;
+            background-color: #0b1120;
+            border-top: 1px solid var(--border-color);
+            font-size: 11px;
+            color: var(--text-dim);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Custom Scrollbar for modern terminal look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-dim);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="terminal-container">
+        <!-- TOP STATUS BAR -->
+        <div class="terminal-header">
+            <div class="terminal-title">🔍 SECURE FORENSIC DATABASE v4.12</div>
+            <div>
+                <span class="status-dot"></span>
+                <span class="status-text" id="status-display">BEREIT FÜR LOGIN</span>
+            </div>
+        </div>
+
+        <!-- SCREEN 1: LOGIN SCREEN -->
+        <div class="screen active" id="login-screen">
+            <div class="login-box">
+                <div class="login-badge">🔒</div>
+                <h2 style="margin-bottom: 10px; font-size: 18px; letter-spacing: 1px;">AUTORISIERUNG ERFORDERLICH</h2>
+                <p class="login-instructions">
+                    Dies ist ein geschütztes System der Kriminalpolizei.<br>
+                    Geben Sie Ihren Autorisierungscode ein, um fortzufahren.
+                </p>
+                <div class="input-group">
+                    <input type="password" id="password-field" class="terminal-input" placeholder="•••••••••••••••" autofocus>
+                </div>
+                <button class="terminal-button" onclick="tryLogin()">ZUGRIFF BESTÄTIGEN</button>
+                <div class="error-message" id="login-error">ZUGRIFF VERWEIGERT: Ungültiger Autorisierungscode.</div>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: MAIN DATABASE TERMINAL -->
+        <div class="screen main-screen" id="main-screen">
+            <div class="welcome-panel">
+                ANGEMELDET ALS: SONDEREINHEIT // ZUGRIFFSLEVEL: ERMITTLER<br>
+                SYSTEM-ZEIT: <span id="current-date"></span> | STATUS: VERBINDUNG GESICHERT
+            </div>
+
+            <!-- SEARCH COMPONENT -->
+            <div class="search-container">
+                <input type="text" id="search-field" class="terminal-input search-input" placeholder="Fallkennung oder Suchbegriff eingeben (z.B. Laborbericht zu Asservat 3)...">
+                <button class="terminal-button search-btn" onclick="executeSearch()">ABFRAGEN</button>
+            </div>
+
+            <!-- OUTPUT COMPONENT -->
+            <div class="output-panel" id="output-panel">
+                <div class="output-placeholder">
+                    Bereit für Datenbank-Abfrage.<br>
+                    Bitte geben Sie oben eine gültige Fallkennung oder einen Suchbegriff ein.
+                </div>
+            </div>
+        </div>
+
+        <!-- FOOTER INFO -->
+        <div class="terminal-footer">
+            <span>SYS_LOG: SECURE_MODE_ACTIVE</span>
+            <span>PRESSE- UND ÖFFENTLICHKEITSARBEIT POLIZEI DIREKTION © 2026</span>
+        </div>
+    </div>
+
+    <script>
+        // CONFIGURATION: Set your global password here
+        const GLOBAL_PASSWORD = "18.05.2026_Waldvilla";
+
+        // DATABASE: Your 10-20 clues and pre-formatted answers go here
+        // The keys MUST be lowercase for case-insensitive matching.
+        const forensicDatabase = {
+            "laborbericht zu asservat 3": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: TOXIKOLOGISCHES GUTACHTEN ASS_03 &lt;&lt;</div>
+                    
+                    <div class="response-section">
+                        <span class="response-label">Untersuchungstyp:</span>
+                        <span class="response-value">Toxikologische Analyse und Blutuntersuchung des Leichnams</span>
+                    </div>
+                    
+                    <div class="response-section">
+                        <span class="response-label">Ergebnis:</span>
+                        <span class="response-value">Im Blut des Opfers konnten <em>keine</em> Spuren von Fremdstoffen, Giften oder Überdosierungen nachgewiesen werden. Allerdings war der Spiegel seines lebenswichtigen Herzmedikaments kritisch niedrig, wie wenn die Abend-Dosis nicht eingenommen wurde.</span>
+                    </div>
+                    
+                    <div class="response-section">
+                        <span class="response-label">Todesursache:</span>
+                        <span class="response-value">Der biologische Tod trat durch ein <strong>akutes, massives Herzversagen (Herzinfarkt)</strong> ein. Der Infarkt führte zu einem sofortigen Bewusstseinsverlust, woraufhin das Opfer ungebremst vorwärts stürzte und mit dem Kopf auf dem Beton-/Steinsockel aufschlug. Dieser Sturz zerschmetterte die Taschenuhr exakt im Moment des Aufpralls.</span>
+                    </div>
+                </div>
+            `,
+            "toxikologie leiche": "ALIAS:laborbericht zu asservat 3",
+            "blutuntersuchung opfer": "ALIAS:laborbericht zu asservat 3",
+            "asservat 3": "ALIAS:laborbericht zu asservat 3",
+            
+            // You can easily add more keys here later!
+            "fall-2026": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: FALLAKTE_2026-A &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Status:</span>
+                        <span class="response-value">Laufende Ermittlungen. Akte teils gesperrt.</span>
+                    </div>
+                </div>
+            `
+        };
+
+        // --- TERMINAL LOGIC ---
+
+        // Real-time clock for immersion
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('current-date').innerText = now.toLocaleString('de-DE');
+        }
+        setInterval(updateClock, 1000);
+
+        // Handle Login
+        function tryLogin() {
+            const passwordInput = document.getElementById('password-field').value;
+            const errorDiv = document.getElementById('login-error');
+            
+            if (passwordInput === GLOBAL_PASSWORD) {
+                // Switch screens
+                document.getElementById('login-screen').classList.remove('active');
+                document.getElementById('main-screen').classList.add('active');
+                
+                // Update header status
+                document.getElementById('status-display').innerText = "ONLINE // DATENBANK GEKOPPELT";
+                updateClock();
+                
+                // Focus on search bar
+                setTimeout(() => {
+                    document.getElementById('search-field').focus();
+                }, 100);
+            } else {
+                errorDiv.style.visibility = 'visible';
+                // Shake effect or feedback could be added here
+                document.getElementById('password-field').value = '';
+            }
+        }
+
+        // Allow pressing Enter to Login
+        document.getElementById('password-field').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') tryLogin();
+        });
+
+        // Handle Database Search Queries
+        function executeSearch() {
+            const searchField = document.getElementById('search-field');
+            let query = searchField.value.trim().toLowerCase();
+            const outputPanel = document.getElementById('output-panel');
+            
+            if (!query) return;
+
+            // Simple loading effect simulation for immersion
+            outputPanel.innerHTML = '<div class="output-placeholder">Greife auf Server zu... Bitte warten...</div>';
+            
+            setTimeout(() => {
+                // Check database
+                if (forensicDatabase.hasOwnProperty(query)) {
+                    let result = forensicDatabase[query];
+                    
+                    // Handle Alias/Redirects if specified
+                    if (result.startsWith("ALIAS:")) {
+                        const targetKey = result.replace("ALIAS:", "");
+                        result = forensicDatabase[targetKey];
+                    }
+                    
+                    outputPanel.innerHTML = result;
+                } else {
+                    // Modern stylized error message when entry is not found
+                    outputPanel.innerHTML = `
+                        <div class="system-response" style="color: var(--error-color);">
+                            <div class="response-header" style="color: var(--error-color); border-color: var(--error-color);">&gt;&gt; SYSTEM-FEHLER: EINTRAG NICHT GEFUNDEN &lt;&lt;</div>
+                            <div class="response-section">
+                                <span class="response-value">Die Suchabfrage nach "<strong>\${searchField.value}</strong>" lieferte 0 Ergebnisse im forensischen Hauptregister.</span>
+                            </div>
+                            <div class="response-section" style="color: var(--text-dim); font-size: 12px;">
+                                HINWEIS: Überprüfen Sie die Schreibweise oder versuchen Sie alternative Suchbegriffe (z.B. "Asservat 3" oder "Toxikologie Leiche").
+                            </div>
+                        </div>
+                    `;
+                }
+            }, 600); // 600ms artificial delay for hacker/terminal immersion
+        }
+
+        // Allow pressing Enter to search
+        document.getElementById('search-field').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') executeSearch();
+        });
+    </script>
+</body>
+</html>

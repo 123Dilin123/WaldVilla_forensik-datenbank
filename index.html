@@ -339,7 +339,7 @@
                     <div class="metadata-label">Fall-Zugehörigkeit:</div>
                     <div>Sonderkommission SOKO „Waldvilla“</div>
                     <div class="metadata-label">System-Status:</div>
-                    <div>Abfrage-Modul aktiv | Authentifiziert als Sondereinheit</div>
+                    <div>Abfrage-Modul active | Authentifiziert als Sondereinheit</div>
                     <div class="metadata-label">Aktuelle Zeit:</div>
                     <div id="current-date">-</div>
                 </div>
@@ -370,31 +370,368 @@
 
         // Datenbank-Matrix (Einträge aus dem echten Polizeibericht)
         const forensicDatabase = {
+            "laborbericht zu asservat 1": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ANALYSEBERICHT ASS_01 (KLEIDUNG) &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Abendkostüm/Kleidung der Finanzberaterin.</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Befund:</span>
+                        <span class="response-value">Die am eingereichten Gewebe gesicherten Blutspuren stammen gerichtsmedizinisch zweifelsfrei vom Opfer (Dr. Becker).</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Kriminaltechnische Besonderheit:</span>
+                        <span class="response-value">Die molekularbiologische Verteilung und das Gerinnungsverhalten der Blutspritzer zeigen keine dynamischen Abwehrmuster. Das Verteilungsmuster beweist wissenschaftlich, dass dieses Blut erst nach dem Eintritt des biologischen Todes (postmortal) durch stumpfe Gewalteinwirkung auf die Kleidung übertragen wurde. Als die Trägerin der Kleidung auf das Opfer einschlug, war dieses bereits biologisch tot.</span>
+                    </div>
+                </div>
+            `,
+            "laborbericht zu asservat 2": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ANATOMISCHER BEFUND ASS_02 (DOSIERBOX) &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Wöchentliches Medikamenten-Dosierkästchen aus der Sakkotasche des Opfers.</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Analyse-Ergebnisse:</span>
+                        <span class="response-value">
+                            1. Die vorgesehene Abend-Dosis für den Tattag ist vollständig gefüllt und unangetastet.<br>
+                            2. Die mikroskopische Untersuchung der Kapseln für die kommenden Wochentage ergab eine gezielte Sabotage: Zwei der Herzkapseln wurden geöffnet, entleert, vom Wirkstoff befreit und wirkstofflos wieder zusammengesteckt.<br>
+                            3. Auf den Gelatinewänden dieser manipulierten, leeren Kapseln wurde ein fragmentarischer Fingerabdruck gesichert. (Weiterführender Befehl: „Daktyloskopischer Befund #4“)
+                        </span>
+                    </div>
+                </div>
+            `,
             "laborbericht zu asservat 3": `
                 <div class="system-response">
                     <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: TOXIKOLOGISCHES GUTACHTEN ASS_03 &lt;&lt;</div>
-                    
                     <div class="response-section">
                         <span class="response-label">Untersuchungstyp:</span>
                         <span class="response-value">Toxikologische Analyse und Blutuntersuchung des Leichnams</span>
                     </div>
-                    
                     <div class="response-section">
                         <span class="response-label">Ergebnis:</span>
-                        <span class="response-value">Im Blut des Opfers konnten <em>keine</em> Spuren von Fremdstoffen, Giften oder Überdosierungen nachgewiesen werden. Allerdings war der Spiegel seines lebenswichtigen Herzmedikaments kritisch niedrig, wie wenn die Abend-Dosis nicht eingenommen wurde.</span>
+                        <span class="response-value">Im Blut des Opfers konnten keine Spuren von Fremdstoffen, Giften oder Überdosierungen nachgewiesen werden. Allerdings war der Spiegel seines lebenswichtigen Herzmedikaments kritisch niedrig, wie wenn die Abend-Dosis nicht eingenommen wurde.</span>
                     </div>
-                    
                     <div class="response-section">
                         <span class="response-label">Todesursache:</span>
-                        <span class="response-value">Der biologische Tod trat durch ein <strong>akutes, massives Herzversagen (Herzinfarkt)</strong> ein. Der Infarkt führte zu einem sofortigen Bewusstseinsverlust, woraufhin das Opfer ungebremst vorwärts stürzte und mit dem Kopf auf dem Beton-/Steinsockel aufschlug. Dieser Sturz zerschmetterte die Taschenuhr exakt im Moment des Aufpralls.</span>
+                        <span class="response-value">Der biologische Tod trat durch ein akutes, massives Herzversagen (Herzinfarkt) ein. Der Infarkt führte zu einem sofortigen Bewusstseinsverlust, woraufhin das Opfer ungebremst vorwärts stürzte und mit dem Kopf auf dem Beton-/Steinsockel aufschlug. Dieser Sturz zerschmetterte die Taschenuhr exakt im Moment des Aufpralls.</span>
                     </div>
                 </div>
             `,
-            // Aliase (Suchbegriff-Varianten für denselben Bericht)
-            "toxikologie leiche": "ALIAS:laborbericht zu asservat 3",
-            "blutuntersuchung opfer": "ALIAS:laborbericht zu asservat 3",
+            "dok 1": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DOKUMENTEN-ANALYSE DOK-01 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Beschreibung:</span>
+                        <span class="response-value">Eine handschriftliche, persönliche Notiz des Opfers, die unordentlich auf der Schreibunterlage lag.</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Inhalt:</span>
+                        <span class="response-value">„Testament unbedingt ändern! Nachdem sie von der Tagung wieder da sind!“ (DOK-01).</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Status:</span>
+                        <span class="response-value">Die Daten wurden ins Labor geschickt und sind unter <strong>Daktyloskopischer Befund #4</strong> zu finden.</span>
+                    </div>
+                </div>
+            `,
+            "laborbericht (dok-02)": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DOKUMENTEN-ANALYSE DOK-02 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Eine Visitenkarte Notariat Gerda-Becker</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Labor-Status:</span>
+                        <span class="response-value">Ergebnisse verfügbar unter: <strong>Daktyloskopischer Befund #5</strong>.</span>
+                    </div>
+                </div>
+            `,
+            "daktyloskopischer befund #1": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_01 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Profil:</span>
+                        <span class="response-value">Fingerabdrücke Bogen Muster</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Ergebnis:</span>
+                        <span class="response-value">Die Fingerabdrücke (Bogen Muster) wurden auf der persönlichen Notiz des Vaters auf dem Schreibtisch gesichert sowie auf der Visitenkarte Dr. Becker.</span>
+                    </div>
+                </div>
+            `,
+            "daktyloskopischer befund #2": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_02 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Profil:</span>
+                        <span class="response-value">Fingerabdrücke Schleifen Muster</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Ergebnis:</span>
+                        <span class="response-value">Die Fingerabdrücke finden sich im gesamten Gartenbereich und am Pavillon.</span>
+                    </div>
+                </div>
+            `,
+            "daktyloskopischer befund #3": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_03 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Profil:</span>
+                        <span class="response-value">Wirbel Muster</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Ergebnis:</span>
+                        <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters sowie auf der Visitenkarte der Detektei gesichert.</span>
+                    </div>
+                </div>
+            `,
+            "daktyloskopischer befund #4": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_04 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Analyse der persönlichen Notiz (DOK-01) vom Schreibtisch.</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Gefundene Spuren:</span>
+                        <span class="response-value">Fingerabdrücke Wirbel Muster und Bogenmuster.</span>
+                    </div>
+                </div>
+            `,
+            "daktyloskopischer befund #5": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_05 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Analyse der Visitenkarte (DOK-02).</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Gefundene Spuren:</span>
+                        <span class="response-value">Fingerabdrücke von der Wirbel Muster und Bogenmuster.</span>
+                    </div>
+                </div>
+            `,
+            "daktyloskopischer befund #6": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: FORENSISCHER MATCH / SPURENSICHERUNG &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Fragmentarische Abdrücke auf den manipulierten Gelatinekapseln aus der Tablettenbox des Vaters (Asservat 2).</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Auswertung:</span>
+                        <span class="response-value">Der mathematische und morphologische Abgleich des gesicherten Abdrucks liefert Übereinstimmung mit dem <strong>Fingerabdruck-Bogenmuster</strong>.</span>
+                    </div>
+                </div>
+            `,
+            "untersuchung taschenuhrgeg_01": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: MECHANISCHE PRÜFUNG GEG_01 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Mechanische Taschenuhr des Opfers.</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Befund:</span>
+                        <span class="response-value">Das Gehäuse und das Glas sind durch eine massive, punktuelle Krafteinwirkung von außen vollständig zersplittert. Das mechanische Zahnradwerk wurde durch die Wucht der Erschütterung sofort blockiert und dauerhaft deformiert. Fingerabdruck Narbe.</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Zeitbestimmung:</span>
+                        <span class="response-value">Die Zeiger stehen unverrückbar auf exakt 20:12 Uhr. Dies markiert unumstößlich den exakten Sekundensekunde des Aufpralls auf den Betonsockel im Garten.</span>
+                    </div>
+                </div>
+            `,
+            "gehstock asservat 4": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ASSERVAT 04 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Gehstock</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Befund:</span>
+                        <span class="response-value">Keine Fingerabdrücke oder sonstige Spuren direkt auf dem Material nachweisbar.</span>
+                    </div>
+                </div>
+            `,
+            "asservat 5": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ASSERVAT 05 &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand:</span>
+                        <span class="response-value">Verbrannte Akte</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Befund:</span>
+                        <span class="response-value">Es konnten Fingerabdrücke gesichert werden: Wirbel Muster.</span>
+                    </div>
+                </div>
+            `,
+            "kombinationgehstock_leiche": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: QUERVERBINDUNG / BALLISTIK &lt;&lt;</div>
+                    <div class="response-section">
+                        <span class="response-label">Gegenstand der Abgleichung:</span>
+                        <span class="response-value">Gehstock (Asservat 4) + Wunde/Leiche</span>
+                    </div>
+                    <div class="response-section">
+                        <span class="response-label">Ergebnis:</span>
+                        <span class="response-value">Der Abdruck der Wunde stimmt mit Muster und Größe des Gehstocks überein.</span>
+                    </div>
+                </div>
+            `,
+
+            // ==========================================
+            // ALIASE / ALTERNATIVE SUCHBEGRIFFE
+            // ==========================================
+
+            // Aliase für Asservat 1 (Kleidung)
+            "asservat 1": "ALIAS:laborbericht zu asservat 1",
+            "ass1": "ALIAS:laborbericht zu asservat 1",
+            "ass_01": "ALIAS:laborbericht zu asservat 1",
+            "kleidung finanzberaterin": "ALIAS:laborbericht zu asservat 1",
+            "kleidung": "ALIAS:laborbericht zu asservat 1",
+            "kostüm untersuchen": "ALIAS:laborbericht zu asservat 1",
+            "kostüm": "ALIAS:laborbericht zu asservat 1",
+            "abendkostüm": "ALIAS:laborbericht zu asservat 1",
+            "blutspuren kleidung": "ALIAS:laborbericht zu asservat 1",
+
+            // Aliase für Asservat 2 (Tablettenbox)
+            "asservat 2": "ALIAS:laborbericht zu asservat 2",
+            "ass2": "ALIAS:laborbericht zu asservat 2",
+            "ass_02": "ALIAS:laborbericht zu asservat 2",
+            "tablettenbox analysieren": "ALIAS:laborbericht zu asservat 2",
+            "tablettenbox": "ALIAS:laborbericht zu asservat 2",
+            "medikamentendosierer": "ALIAS:laborbericht zu asservat 2",
+            "dosierbox": "ALIAS:laborbericht zu asservat 2",
+            "medikamente": "ALIAS:laborbericht zu asservat 2",
+            "kapseln": "ALIAS:laborbericht zu asservat 2",
+            "herzmedikament": "ALIAS:laborbericht zu asservat 2",
+            "dosierkästchen": "ALIAS:laborbericht zu asservat 2",
+
+            // Aliase für Asservat 3 (Toxikologie)
             "asservat 3": "ALIAS:laborbericht zu asservat 3",
-            "toxikologie": "ALIAS:laborbericht zu asservat 3"
+            "ass3": "ALIAS:laborbericht zu asservat 3",
+            "ass_03": "ALIAS:laborbericht zu asservat 3",
+            "toxikologie leiche": "ALIAS:laborbericht zu asservat 3",
+            "toxikologie": "ALIAS:laborbericht zu asservat 3",
+            "blutuntersuchung opfer": "ALIAS:laborbericht zu asservat 3",
+            "blutuntersuchung": "ALIAS:laborbericht zu asservat 3",
+            "leiche": "ALIAS:laborbericht zu asservat 3",
+            "todesursache": "ALIAS:laborbericht zu asservat 3",
+            "herzinfarkt": "ALIAS:laborbericht zu asservat 3",
+
+            // Aliase für DOK 1 (Notiz)
+            "dok1": "ALIAS:dok 1",
+            "dok-01": "ALIAS:dok 1",
+            "notiz": "ALIAS:dok 1",
+            "persönliche notiz": "ALIAS:dok 1",
+            "handschriftliche notiz": "ALIAS:dok 1",
+            "schreibunterlage": "ALIAS:dok 1",
+            "testament": "ALIAS:dok 1",
+
+            // Aliase für DOK 2 (Visitenkarte)
+            "dok2": "ALIAS:laborbericht (dok-02)",
+            "dok-02": "ALIAS:laborbericht (dok-02)",
+            "visitenkarte": "ALIAS:laborbericht (dok-02)",
+            "notariat": "ALIAS:laborbericht (dok-02)",
+            "gerda-becker": "ALIAS:laborbericht (dok-02)",
+            "visitenkarte notariat": "ALIAS:laborbericht (dok-02)",
+
+            // Aliase für Daktyloskopie 1 (Bogen)
+            "dak1": "ALIAS:daktyloskopischer befund #1",
+            "dak_01": "ALIAS:daktyloskopischer befund #1",
+            "daktyloskopischer befund 1": "ALIAS:daktyloskopischer befund #1",
+            "fingerabdrücke bogen muster": "ALIAS:daktyloskopischer befund #1",
+            "fingerabdruck bogen muster": "ALIAS:daktyloskopischer befund #1",
+            "bogen muster": "ALIAS:daktyloskopischer befund #1",
+            "bogenmuster": "ALIAS:daktyloskopischer befund #1",
+
+            // Aliase für Daktyloskopie 2 (Schleife)
+            "dak2": "ALIAS:daktyloskopischer befund #2",
+            "dak_02": "ALIAS:daktyloskopischer befund #2",
+            "daktyloskopischer befund 2": "ALIAS:daktyloskopischer befund #2",
+            "fingerabdrücke schleifen muster": "ALIAS:daktyloskopischer befund #2",
+            "fingerabdruck schleifen muster": "ALIAS:daktyloskopischer befund #2",
+            "schleifen muster": "ALIAS:daktyloskopischer befund #2",
+            "schleifenmuster": "ALIAS:daktyloskopischer befund #2",
+            "garten": "ALIAS:daktyloskopischer befund #2",
+            "pavillon": "ALIAS:daktyloskopischer befund #2",
+
+            // Aliase für Daktyloskopie 3 (Wirbel)
+            "dak3": "ALIAS:daktyloskopischer befund #3",
+            "dak_03": "ALIAS:daktyloskopischer befund #3",
+            "daktyloskopischer befund 3": "ALIAS:daktyloskopischer befund #3",
+            "fingerabdrücke wirbelmuster": "ALIAS:daktyloskopischer befund #3",
+            "fingerabdruck wirbelmuster": "ALIAS:daktyloskopischer befund #3",
+            "wirbel muster": "ALIAS:daktyloskopischer befund #3",
+            "wirbelmuster": "ALIAS:daktyloskopischer befund #3",
+
+            // Aliase für Daktyloskopie 4 (Notiz Analyse)
+            "dak4": "ALIAS:daktyloskopischer befund #4",
+            "dak_04": "ALIAS:daktyloskopischer befund #4",
+            "daktyloskopischer befund 4": "ALIAS:daktyloskopischer befund #4",
+            "analyse persönliche notiz": "ALIAS:daktyloskopischer befund #4",
+            "fingerabdrücke notiz": "ALIAS:daktyloskopischer befund #4",
+
+            // Aliase für Daktyloskopie 5 (Visitenkarte Analyse)
+            "dak5": "ALIAS:daktyloskopischer befund #5",
+            "dak_05": "ALIAS:daktyloskopischer befund #5",
+            "daktyloskopischer befund 5": "ALIAS:daktyloskopischer befund #5",
+            "analyse visitenkarte detektei": "ALIAS:daktyloskopischer befund #5",
+            "analyse visitenkarte": "ALIAS:daktyloskopischer befund #5",
+            "fingerabdrücke visitenkarte": "ALIAS:daktyloskopischer befund #5",
+
+            // Aliase für Daktyloskopie 6 (Kapseln Analyse)
+            "dak6": "ALIAS:daktyloskopischer befund #6",
+            "dak_06": "ALIAS:daktyloskopischer befund #6",
+            "daktyloskopischer befund 6": "ALIAS:daktyloskopischer befund #6",
+            "fingerabdrücke kapseln": "ALIAS:daktyloskopischer befund #6",
+            "fingerabdruck kapseln": "ALIAS:daktyloskopischer befund #6",
+            "spur tablettenbox": "ALIAS:daktyloskopischer befund #6",
+            "kapsel match": "ALIAS:daktyloskopischer befund #6",
+
+            // Aliase für Taschenuhr
+            "untersuchung taschenuhr": "ALIAS:untersuchung taschenuhrgeg_01",
+            "taschenuhr": "ALIAS:untersuchung taschenuhrgeg_01",
+            "taschenuhr analysieren": "ALIAS:untersuchung taschenuhrgeg_01",
+            "uhrwerk prüfen": "ALIAS:untersuchung taschenuhrgeg_01",
+            "uhr": "ALIAS:untersuchung taschenuhrgeg_01",
+            "geg_01": "ALIAS:untersuchung taschenuhrgeg_01",
+            "geg-01": "ALIAS:untersuchung taschenuhrgeg_01",
+            "geg01": "ALIAS:untersuchung taschenuhrgeg_01",
+            "uhrzeit": "ALIAS:untersuchung taschenuhrgeg_01",
+            "fingerabdruck narbe": "ALIAS:untersuchung taschenuhrgeg_01",
+
+            // Aliase für Gehstock (Asservat 4)
+            "asservat 4": "ALIAS:gehstock asservat 4",
+            "ass4": "ALIAS:gehstock asservat 4",
+            "ass_04": "ALIAS:gehstock asservat 4",
+            "gehstock": "ALIAS:gehstock asservat 4",
+            "spuren gehstock": "ALIAS:gehstock asservat 4",
+
+            // Aliase für Verbrannte Akte (Asservat 5)
+            "ass5": "ALIAS:asservat 5",
+            "ass_05": "ALIAS:asservat 5",
+            "akte": "ALIAS:asservat 5",
+            "verbrannte akte": "ALIAS:asservat 5",
+
+            // Aliase für Kombinationen
+            "gehstock + leiche": "ALIAS:kombinationgehstock_leiche",
+            "gehstock+leiche": "ALIAS:kombinationgehstock_leiche",
+            "gehstock + wunde": "ALIAS:kombinationgehstock_leiche",
+            "gehstock+wunde": "ALIAS:kombinationgehstock_leiche",
+            "asservat 4 + wunde": "ALIAS:kombinationgehstock_leiche",
+            "asservat 4+ wunde": "ALIAS:kombinationgehstock_leiche",
+            "asservat 4 + leiche": "ALIAS:kombinationgehstock_leiche",
+            "asservat 4+leiche": "ALIAS:kombinationgehstock_leiche",
+            "wunde": "ALIAS:kombinationgehstock_leiche",
+            "wunde gehstock": "ALIAS:kombinationgehstock_leiche"
         };
 
         // Uhrzeit-Aktualisierung
@@ -452,7 +789,7 @@
                     outputPanel.innerHTML = `
                         <div class="system-response system-error-box">
                             <div class="response-header" style="color: #9b2c2c; border-color: #9b2c2c;">[SYS-ERR: KEIN AKTENFUND]</div>
-                            <p>Die Suchabfrage nach „<strong>\${searchField.value}</strong>“ verlief im aktuellen Systemregister negativ.</p>
+                            <p>Die Suchabfrage nach „<strong>${searchField.value}</strong>“ verlief im aktuellen Systemregister negativ.</p>
                             <p style="margin-top: 10px; font-size: 12px; color: #718096;">
                                 Mögliche Ursachen: Keine Freigabe für diese Soko-Stufe oder unvollständige Kennung. Überprüfen Sie den Spurentyp (z.B. „Toxikologie“).
                             </p>

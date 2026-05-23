@@ -798,6 +798,9 @@
             "leiche dr. becker": "ALIAS:laborbericht zu asservat 3",
             "herzinfarkt todesursache": "ALIAS:laborbericht zu asservat 3",
             "leichenfund": "ALIAS:laborbericht zu asservat 3",
+            "leiche": "ALIAS:laborbericht zu asservat 3",
+            "leichnam": "ALIAS:laborbericht zu asservat 3",
+            "tot": "ALIAS:laborbericht zu asservat 3",
             
             "fingerabdrücke bogen muster": "ALIAS:daktyloskopischer befund #1",
             "bogenmuster": "ALIAS:daktyloskopischer befund #1",
@@ -834,6 +837,8 @@
             "taschenuhr beschädigung": "ALIAS:untersuchung taschenuhrgeg_01",
             "uhrzeit 20:12": "ALIAS:untersuchung taschenuhrgeg_01",
             "kaputte uhr": "ALIAS:untersuchung taschenuhrgeg_01",
+            "taschenuhr": "ALIAS:untersuchung taschenuhrgeg_01",
+            "uhr": "ALIAS:untersuchung taschenuhrgeg_01",
             
             "gehstock + leiche": "ALIAS:kombinationgehstock_leiche",
             "gehstock + wunde": "ALIAS:kombinationgehstock_leiche",
@@ -898,29 +903,53 @@
             if (e.key === 'Enter') tryLogin();
         });
 
-        // DIE NEUE, FLEXIBLE SUCHLOGIK
+        // HILFSFUNKTION: Text für die Suche normalisieren (Umlaute ersetzen, Kleinschreibung)
+        function normalizeText(text) {
+            return text.toLowerCase()
+                       .replace(/ä/g, "ae")
+                       .replace(/ö/g, "oe")
+                       .replace(/ü/g, "ue")
+                       .replace(/ß/g, "ss")
+                       .replace(/[^a-z0-9\s\-_+#.]/g, "") // Entfernt störende Sonderzeichen
+                       .trim();
+        }
+
+        // DIE REVOLUTIONIERTE, SUPER FLEXIBLE GEHIRN-LOGIK DER SUCHE
         function executeSearch() {
             const searchField = document.getElementById('search-field');
-            let query = searchField.value.trim().toLowerCase();
+            const originalQuery = searchField.value;
+            let normalizedQuery = normalizeText(originalQuery);
             const outputPanel = document.getElementById('output-panel');
             
-            if (!query) return;
+            if (!normalizedQuery) return;
 
             outputPanel.innerHTML = '<div class="output-placeholder">Verbinde mit Zentralregister... Bitte warten...</div>';
             
             setTimeout(() => {
                 let foundKey = null;
 
-                // 1. Schritt: Prüfen auf exakten Treffer (Sicherheitsnetz)
-                if (forensicDatabase.hasOwnProperty(query)) {
-                    foundKey = query;
-                } 
-                // 2. Schritt: Teilwortsuche (Wenn Eingabe im Key enthalten ist ODER Key in Eingabe)
-                else {
-                    for (const key in forensicDatabase) {
-                        if (key.includes(query) || query.includes(key)) {
-                            foundKey = key;
-                            break; // Ersten Treffer nehmen
+                // Datenbank-Keys für die Suche vorbereiten (Normalisiertes Mapping erstellen)
+                const normalizedDb = {};
+                for (const key in forensicDatabase) {
+                    normalizedDb[normalizeText(key)] = key;
+                }
+
+                // LEVEL 1: Direktes Matching mit dem normalisierten Begriff
+                if (normalizedDb[normalizedQuery]) {
+                    foundKey = normalizedDb[normalizedQuery];
+                }
+
+                // LEVEL 2: Wenn kein direkter Match, zerlege die Spielereingabe in Einzelwörter (Fuzzy-Search)
+                if (!foundKey) {
+                    const queryWords = normalizedQuery.split(/\s+/).filter(w => w.length > 2); // Nur Wörter mit mehr als 2 Zeichen nutzen
+                    
+                    for (const dbKeyNorm in normalizedDb) {
+                        // Prüfen, ob eines der eingegebenen Wörter im Datenbank-Key steckt...
+                        const wordMatch = queryWords.some(word => dbKeyNorm.includes(word));
+                        // ...oder ob das komplette eingegebene Suchwort den DB-Key beinhaltet
+                        if (wordMatch || dbKeyNorm.includes(normalizedQuery) || normalizedQuery.includes(dbKeyNorm)) {
+                            foundKey = normalizedDb[dbKeyNorm];
+                            break; 
                         }
                     }
                 }
@@ -941,14 +970,14 @@
                     outputPanel.innerHTML = `
                         <div class="system-response system-error-box">
                             <div class="response-header" style="color: #9b2c2c; border-color: #9b2c2c;">[SYS-ERR: KEIN AKTENFUND]</div>
-                            <p>Die Suchabfrage nach „<strong>${searchField.value}</strong>“ verlief im aktuellen Systemregister negativ.</p>
+                            <p>Die Suchabfrage nach „<strong>${originalQuery}</strong>“ verlief im aktuellen Systemregister negativ.</p>
                             <p style="margin-top: 10px; font-size: 12px; color: #718096;">
                                 Systemhinweis: Nutzen Sie einfach prägnante Schlagworte des Falls (z.B. „Leiche“, „Uhr“, „Notiz“, „Kapsel“, „Kleidung“ oder „Asservat“).
                             </p>
                         </div>
                     `;
                 }
-            }, 600);
+            }, 450);
         }
 
         document.getElementById('search-field').addEventListener('keypress', function (e) {

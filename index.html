@@ -9,8 +9,8 @@
         :root {
             --bg-color: #f4f6f9;
             --panel-bg: #ffffff;
-            --primary-dir: #1a365d; /* Dunkelblau für Behörden */
-            --accent-red: #c53030;  /* Warn-Rot für "Streng Geheim" */
+            --primary-dir: #1a365d; 
+            --accent-red: #c53030;  
             --text-main: #2d3748;
             --text-muted: #718096;
             --border-color: #cbd5e0;
@@ -34,7 +34,6 @@
             padding: 20px;
         }
 
-        /* Hauptcontainer */
         .terminal-container {
             width: 100%;
             max-width: 950px;
@@ -47,7 +46,6 @@
             position: relative;
         }
 
-        /* Oberer Balken (Behörden-Header) */
         .terminal-header {
             background-color: var(--primary-dir);
             color: white;
@@ -74,7 +72,6 @@
             letter-spacing: 1px;
         }
 
-        /* Screen-Umschalter */
         .screen {
             flex: 1;
             display: none;
@@ -89,7 +86,6 @@
             display: flex;
         }
 
-        /* LOGIN SCREEN DESIGN */
         .login-box {
             max-width: 450px;
             width: 100%;
@@ -163,14 +159,12 @@
             visibility: hidden;
         }
 
-        /* ERMITTLUNGS-AKTEN SCREEN DESIGN */
         .main-screen {
             justify-content: flex-start !important;
             align-items: stretch !important;
             padding: 30px;
         }
 
-        /* Metadaten-Block */
         .metadata-panel {
             background-color: #edf2f7;
             border-left: 4px solid var(--primary-dir);
@@ -207,7 +201,6 @@
             padding: 0 30px;
         }
 
-        /* Ausgabe im Stil einer gedruckten Akte */
         .output-panel {
             flex: 1;
             border: 1px solid var(--border-color);
@@ -226,7 +219,6 @@
             font-size: 14px;
         }
 
-        /* Strukturierte Bericht-Ausgabe */
         .system-response {
             animation: fadeIn 0.3s ease-out forwards;
             color: #1a202c;
@@ -267,7 +259,6 @@
             color: var(--text-main);
         }
 
-        /* Layout für gespaltene Beweismittel (Text links, Bild rechts) */
         .evidence-split {
             display: flex;
             gap: 20px;
@@ -299,7 +290,6 @@
             margin-top: 8px;
         }
 
-        /* System-Fehlermeldung im Aktenstil */
         .system-error-box {
             border: 1px dashed var(--accent-red);
             background-color: #fff5f5;
@@ -308,7 +298,6 @@
             color: #9b2c2c;
         }
 
-        /* Unterer Info-Balken */
         .terminal-footer {
             padding: 12px 25px;
             background-color: #edf2f7;
@@ -324,7 +313,6 @@
             to { opacity: 1; }
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -380,14 +368,14 @@
             </div>
 
             <div class="search-container">
-                <input type="text" id="search-field" class="terminal-input search-input" placeholder="Geben Sie die Asservat-Nummer oder den Spurentyp ein...">
+                <input type="text" id="search-field" class="terminal-input search-input" placeholder="Suchbegriff oder Aktennummer eingeben (z.B. Leiche, Uhr, Notiz)...">
                 <button class="terminal-button search-btn" onclick="executeSearch()">Daten abrufen</button>
             </div>
 
             <div class="output-panel" id="output-panel">
                 <div class="output-placeholder">
                     System bereit für Abfrage.<br>
-                    Nutzen Sie spezifische Kennungen oder Spurentypen (z.B. „Asservat 1“ oder „Toxikologie Leiche“).
+                    Nutzen Sie Schlagworte, Kennungen oder Spurentypen (z.B. „Leiche“, „Uhr“ oder „Asservat 1“).
                 </div>
             </div>
         </div>
@@ -399,10 +387,9 @@
     </div>
 
     <script>
-        // Passwort-Konfiguration
         const GLOBAL_PASSWORD = "18.05.2026_Waldvilla";
 
-        // Forensik-Datenbank
+        // Forensik-Datenbank (Daten-Zentralen)
         const forensicDatabase = {
             "laborbericht zu asservat 1": `
                 <div class="system-response">
@@ -417,7 +404,7 @@
                     </div>
                     <div class="response-section">
                         <span class="response-label">Kriminaltechnische Besonderheit:</span>
-                        <span class="response-value">Die molekularbiologische Verteilung und das Gerinnungsverhalten der Blutspritzer zeigen keine dynamischen Abwehrmuster. Das Verteilungsmuster beweist wissenschaftlich, dass dieses Blut erst nach dem Eintritt des biologischen Todes (postmortal) durch stumpfe Gewalteinwirkung auf die Kleidung übertragen wurde. Als die Trägerin der Kleidung auf das Opfer einschlug, war dieses bereits biologisch tot.</span>
+                        <span class="response-value">Die molekularbiologische Verteilung und das Gerinnungsverhalten der Blutspritzer zeigen keine dynamichen Abwehrmuster. Das Verteilungsmuster beweist wissenschaftlich, dass dieses Blut erst nach dem Eintritt des biologischen Todes (postmortal) durch stumpfe Gewalteinwirkung auf die Kleidung übertragen wurde. Als die Trägerin der Kleidung auf das Opfer einschlug, war dieses bereits biologisch tot.</span>
                     </div>
                 </div>
             `,
@@ -460,7 +447,7 @@
                     <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DOKUMENTEN-ANALYSE DOK-01 &lt;&lt;</div>
                     <div class="response-section">
                         <span class="response-label">Inhalt:</span>
-                        <span class="response-value">Eine handschriftliche, persönliche Notiz des Opfers, die unordentlich auf der Schreibunterlage lag: „Testament unbedingt ändern! Nachdem sie von der Tagung wieder da sind!“ (DOK-01).</span>
+                        <span class="response-label">Eine handschriftliche, persönliche Notiz des Opfers, die unordentlich auf der Schreibunterlage lag: „Testament unbedingt ändern! Nachdem sie von der Tagung wieder da sind!“ (DOK-01).</span>
                     </div>
                     <div class="response-section">
                         <span class="response-label">Labor-Status:</span>
@@ -775,56 +762,123 @@
             `,
 
             // ==========================================
-            // ALIASE / ALTERNATIVE SUCHBEGRIFFE 
+            // ALIASE UND VARIATIONEN (FÜR FLEXIBLE SUCHE)
             // ==========================================
             "dok-02": "ALIAS:laborbericht (dok-02)",
+            "dok02": "ALIAS:laborbericht (dok-02)",
+            "visitenkarte notar": "ALIAS:laborbericht (dok-02)",
+            "notariat": "ALIAS:laborbericht (dok-02)",
+            "gerda-becker": "ALIAS:laborbericht (dok-02)",
+            
             "dok-01": "ALIAS:dok 1",
             "dok-1": "ALIAS:dok 1",
+            "dok01": "ALIAS:dok 1",
+            "notiz vater": "ALIAS:dok 1",
+            "handschriftliche notiz": "ALIAS:dok 1",
+            "testament ändern": "ALIAS:dok 1",
             
             "asservat 1": "ALIAS:laborbericht zu asservat 1",
+            "ass1": "ALIAS:laborbericht zu asservat 1",
             "kleidung finanzberaterin": "ALIAS:laborbericht zu asservat 1",
             "kostüm untersuchen": "ALIAS:laborbericht zu asservat 1",
+            "abendkostüm": "ALIAS:laborbericht zu asservat 1",
+            "blutspritzer kleidung": "ALIAS:laborbericht zu asservat 1",
             
             "asservat 2": "ALIAS:laborbericht zu asservat 2",
+            "ass2": "ALIAS:laborbericht zu asservat 2",
             "tablettenbox analysieren": "ALIAS:laborbericht zu asservat 2",
             "medikamentendosierer": "ALIAS:laborbericht zu asservat 2",
+            "dosierbox vater": "ALIAS:laborbericht zu asservat 2",
+            "herzkapseln manipulation": "ALIAS:laborbericht zu asservat 2",
             
             "asservat 3": "ALIAS:laborbericht zu asservat 3",
+            "ass3": "ALIAS:laborbericht zu asservat 3",
             "toxikologie leiche": "ALIAS:laborbericht zu asservat 3",
             "blutuntersuchung opfer": "ALIAS:laborbericht zu asservat 3",
+            "leiche dr. becker": "ALIAS:laborbericht zu asservat 3",
+            "herzinfarkt todesursache": "ALIAS:laborbericht zu asservat 3",
+            "leichenfund": "ALIAS:laborbericht zu asservat 3",
             
             "fingerabdrücke bogen muster": "ALIAS:daktyloskopischer befund #1",
-            "fingerabdrücke schleifen muster": "ALIAS:daktyloskopischer befund #2",
-            "fingerabdrücke wirbelmuster": "ALIAS:daktyloskopischer befund #3.",
+            "bogenmuster": "ALIAS:daktyloskopischer befund #1",
+            "dak1": "ALIAS:daktyloskopischer befund #1",
             
-            "tabletten kätzchen": "ALIAS:daktyloskopischer befund #4.1",
+            "fingerabdrücke schleifen muster": "ALIAS:daktyloskopischer befund #2",
+            "schleifenmuster": "ALIAS:daktyloskopischer befund #2",
+            "dak2": "ALIAS:daktyloskopischer befund #2",
+            "garten pavillon": "ALIAS:daktyloskopischer befund #2",
+            
+            "fingerabdrücke wirbelmuster": "ALIAS:daktyloskopischer befund #3.",
+            "wirbelmuster": "ALIAS:daktyloskopischer befund #3.",
+            "dak3": "ALIAS:daktyloskopischer befund #3.",
+            
+            "daktyloskopischer befund #3": "ALIAS:daktyloskopischer befund #3",
+            
+            "tabletten kästchen": "ALIAS:daktyloskopischer befund #4.1",
+            "dosierbox fingerabdruck": "ALIAS:daktyloskopischer befund #4.1",
+            
             "analyse persönliche notiz": "ALIAS:daktyloskopischer befund #4.2",
+            "notiz fingerabdruck": "ALIAS:daktyloskopischer befund #4.2",
+            
             "analyse visitenkarte detektei": "ALIAS:daktyloskopischer befund #5",
+            "visitenkarte fingerabdruck": "ALIAS:daktyloskopischer befund #5",
+            "detektei spur": "ALIAS:daktyloskopischer befund #5",
             
             "fingerabdrücke kapseln": "ALIAS:daktyloskopischer befund #6",
             "spur tablettenbox": "ALIAS:daktyloskopischer befund #6",
+            "gelatinekapseln": "ALIAS:daktyloskopischer befund #6",
             
             "taschenuhr analysieren": "ALIAS:untersuchung taschenuhrgeg_01",
             "uhrwerk prüfen": "ALIAS:untersuchung taschenuhrgeg_01",
             "geg_01": "ALIAS:untersuchung taschenuhrgeg_01",
+            "taschenuhr beschädigung": "ALIAS:untersuchung taschenuhrgeg_01",
+            "uhrzeit 20:12": "ALIAS:untersuchung taschenuhrgeg_01",
+            "kaputte uhr": "ALIAS:untersuchung taschenuhrgeg_01",
             
             "gehstock + leiche": "ALIAS:kombinationgehstock_leiche",
             "gehstock + wunde": "ALIAS:kombinationgehstock_leiche",
             "asservat 4+ wunde": "ALIAS:kombinationgehstock_leiche",
             "asservat 4 + leiche": "ALIAS:kombinationgehstock_leiche",
+            "gehstock wunden abgleich": "ALIAS:kombinationgehstock_leiche",
             
             "brandwunde beraterin + knauf von gehstock": "ALIAS:kombination_wunde_knauf",
-            "asservat 5 + brandwunde beraterin": "ALIAS:daktyloskopischer befund #7"
+            "brandwunde knauf": "ALIAS:kombination_wunde_knauf",
+            "wunden hand muster": "ALIAS:kombination_wunde_knauf",
+            
+            "asservat 5 + brandwunde beraterin": "ALIAS:daktyloskopischer befund #7",
+            "brandwunde muster": "ALIAS:daktyloskopischer befund #7",
+            
+            "gehstock asservat 4": "ALIAS:gehstock asservat 4",
+            "asservat 4": "ALIAS:gehstock asservat 4",
+            "spuren gehstock": "ALIAS:gehstock asservat 4",
+            
+            "asservat 5": "ALIAS:asservat 5",
+            "verbannte akte": "ALIAS:asservat 5",
+            
+            "asservat 6": "ALIAS:asservat 6",
+            "schlafmittel kapsel 6": "ALIAS:asservat 6",
+            
+            "asservat 7": "ALIAS:asservat 7",
+            "schlafmittel kapsel 7": "ALIAS:asservat 7",
+            
+            "blutuntersuchung 1": "ALIAS:blutuntersuchung 1",
+            "alkohol schlafmittel blut": "ALIAS:blutuntersuchung 1",
+            
+            "kamera 1": "ALIAS:kamera 1",
+            "videoüberwachung": "ALIAS:kamera 1",
+            "serverdaten einfahrt": "ALIAS:kamera 1",
+            
+            "telefon 1": "ALIAS:telefon 1",
+            "verbindungsdaten anruf": "ALIAS:telefon 1",
+            "protokoll telefonat": "ALIAS:telefon 1"
         };
 
-        // Uhrzeit-Aktualisierung (Echtzeituhr eingebunden)
         function updateClock() {
             const now = new Date();
             document.getElementById('current-date').innerText = now.toLocaleString('de-DE');
         }
         setInterval(updateClock, 1000);
 
-        // Login-Logik
         function tryLogin() {
             const passwordInput = document.getElementById('password-field').value;
             const errorDiv = document.getElementById('login-error');
@@ -844,7 +898,7 @@
             if (e.key === 'Enter') tryLogin();
         });
 
-        // Such-Logik (Eingaben werden automatisch kleingeschrieben)
+        // DIE NEUE, FLEXIBLE SUCHLOGIK
         function executeSearch() {
             const searchField = document.getElementById('search-field');
             let query = searchField.value.trim().toLowerCase();
@@ -855,9 +909,27 @@
             outputPanel.innerHTML = '<div class="output-placeholder">Verbinde mit Zentralregister... Bitte warten...</div>';
             
             setTimeout(() => {
+                let foundKey = null;
+
+                // 1. Schritt: Prüfen auf exakten Treffer (Sicherheitsnetz)
                 if (forensicDatabase.hasOwnProperty(query)) {
-                    let result = forensicDatabase[query];
+                    foundKey = query;
+                } 
+                // 2. Schritt: Teilwortsuche (Wenn Eingabe im Key enthalten ist ODER Key in Eingabe)
+                else {
+                    for (const key in forensicDatabase) {
+                        if (key.includes(query) || query.includes(key)) {
+                            foundKey = key;
+                            break; // Ersten Treffer nehmen
+                        }
+                    }
+                }
+
+                // Wenn ein Treffer erzielt wurde, ausgeben
+                if (foundKey) {
+                    let result = forensicDatabase[foundKey];
                     
+                    // Falls der gefundene Key ein Alias ist, dem echten Bericht folgen
                     if (result.startsWith("ALIAS:")) {
                         const targetKey = result.replace("ALIAS:", "");
                         result = forensicDatabase[targetKey];
@@ -865,12 +937,13 @@
                     
                     outputPanel.innerHTML = result;
                 } else {
+                    // Fehlermeldung, wenn absolut gar nichts passt
                     outputPanel.innerHTML = `
                         <div class="system-response system-error-box">
                             <div class="response-header" style="color: #9b2c2c; border-color: #9b2c2c;">[SYS-ERR: KEIN AKTENFUND]</div>
                             <p>Die Suchabfrage nach „<strong>${searchField.value}</strong>“ verlief im aktuellen Systemregister negativ.</p>
                             <p style="margin-top: 10px; font-size: 12px; color: #718096;">
-                                Mögliche Ursachen: Keine Freigabe für diese Soko-Stufe oder unvollständige Kennung. Überprüfen Sie den Spurentyp (z.B. „Asservat 1“ oder „DOK-01“).
+                                Systemhinweis: Nutzen Sie einfach prägnante Schlagworte des Falls (z.B. „Leiche“, „Uhr“, „Notiz“, „Kapsel“, „Kleidung“ oder „Asservat“).
                             </p>
                         </div>
                     `;

@@ -368,7 +368,7 @@
         // Passwort-Konfiguration
         const GLOBAL_PASSWORD = "18.05.2026_Waldvilla";
 
-        // Datenbank-Matrix (Einträge aus dem echten Polizeibericht)
+        // Datenbank-Matrix
         const forensicDatabase = {
             "laborbericht zu asservat 1": `
                 <div class="system-response">
@@ -454,39 +454,63 @@
             "daktyloskopischer befund #1": `
                 <div class="system-response">
                     <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_01 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Profil:</span>
-                        <span class="response-value">Fingerabdrücke Bogen Muster</span>
-                    </div>
-                    <div class="response-section">
-                        <span class="response-label">Ergebnis:</span>
-                        <span class="response-value">Die Fingerabdrücke (Bogen Muster) wurden auf der persönlichen Notiz des Vaters auf dem Schreibtisch gesichert sowie auf der Visitenkarte Dr. Becker.</span>
+                    <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+                        <div style="flex: 2; min-width: 280px;">
+                            <div class="response-section">
+                                <span class="response-label">Profil:</span>
+                                <span class="response-value">Fingerabdrücke Bogen Muster</span>
+                            </div>
+                            <div class="response-section">
+                                <span class="response-label">Ergebnis:</span>
+                                <span class="response-value">Die Fingerabdrücke (Bogen Muster) wurden auf der persönlichen Notiz des Vaters auf dem Schreibtisch gesichert sowie auf der Visitenkarte Dr. Becker.</span>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 220px; background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 3px; text-align: center;">
+                            <span class="response-label" style="margin-bottom: 8px; display: block;">Labor-Scan: paar1.jpg</span>
+                            <img src="Bilder/paar1.jpg" alt="Fingerabdruck Bogenmuster" style="width: 100%; height: auto; border: 1px solid #cbd5e0; border-radius: 2px;">
+                        </div>
                     </div>
                 </div>
             `,
             "daktyloskopischer befund #2": `
                 <div class="system-response">
                     <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_02 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Profil:</span>
-                        <span class="response-value">Fingerabdrücke Schleifen Muster</span>
-                    </div>
-                    <div class="response-section">
-                        <span class="response-label">Ergebnis:</span>
-                        <span class="response-value">Die Fingerabdrücke finden sich im gesamten Gartenbereich und am Pavillon.</span>
+                    <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+                        <div style="flex: 2; min-width: 280px;">
+                            <div class="response-section">
+                                <span class="response-label">Profil:</span>
+                                <span class="response-value">Fingerabdrücke Schleifen Muster</span>
+                            </div>
+                            <div class="response-section">
+                                <span class="response-label">Ergebnis:</span>
+                                <span class="response-value">Die Fingerabdrücke finden sich im gesamten Gartenbereich und am Pavillon.</span>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 220px; background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 3px; text-align: center;">
+                            <span class="response-label" style="margin-bottom: 8px; display: block;">Labor-Scan: paar2.jpg</span>
+                            <img src="Bilder/paar2.jpg" alt="Fingerabdruck Schleifenmuster" style="width: 100%; height: auto; border: 1px solid #cbd5e0; border-radius: 2px;">
+                        </div>
                     </div>
                 </div>
             `,
             "daktyloskopischer befund #3": `
                 <div class="system-response">
                     <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_03 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Profil:</span>
-                        <span class="response-value">Wirbel Muster</span>
-                    </div>
-                    <div class="response-section">
-                        <span class="response-label">Ergebnis:</span>
-                        <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters sowie auf der Visitenkarte der Detektei gesichert.</span>
+                    <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+                        <div style="flex: 2; min-width: 280px;">
+                            <div class="response-section">
+                                <span class="response-label">Profil:</span>
+                                <span class="response-value">Wirbel Muster</span>
+                            </div>
+                            <div class="response-section">
+                                <span class="response-label">Ergebnis:</span>
+                                <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters sowie auf der Visitenkarte der Detektei gesichert.</span>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 220px; background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 3px; text-align: center;">
+                            <span class="response-label" style="margin-bottom: 8px; display: block;">Labor-Scan: paar3.jpg</span>
+                            <img src="Bilder/paar3.jpg" alt="Fingerabdruck Wirbelmuster" style="width: 100%; height: auto; border: 1px solid #cbd5e0; border-radius: 2px;">
+                        </div>
                     </div>
                 </div>
             `,
@@ -519,13 +543,21 @@
             "daktyloskopischer befund #6": `
                 <div class="system-response">
                     <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: FORENSISCHER MATCH / SPURENSICHERUNG &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Gegenstand:</span>
-                        <span class="response-value">Fragmentarische Abdrücke auf den manipulierten Gelatinekapseln aus der Tablettenbox des Vaters (Asservat 2).</span>
-                    </div>
-                    <div class="response-section">
-                        <span class="response-label">Auswertung:</span>
-                        <span class="response-value">Der mathematische und morphologische Abgleich des gesicherten Abdrucks liefert Übereinstimmung mit dem <strong>Fingerabdruck-Bogenmuster</strong>.</span>
+                    <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap;">
+                        <div style="flex: 2; min-width: 280px;">
+                            <div class="response-section">
+                                <span class="response-label">Gegenstand:</span>
+                                <span class="response-value">Fragmentarische Abdrücke auf den manipulierten Gelatinekapseln aus der Tablettenbox des Vaters (Asservat 2).</span>
+                            </div>
+                            <div class="response-section">
+                                <span class="response-label">Auswertung:</span>
+                                <span class="response-value">Der mathematische und morphologische Abgleich des gesicherten Abdrucks liefert Übereinstimmung mit dem <strong>Fingerabdruck-Bogenmuster</strong>.</span>
+                            </div>
+                        </div>
+                        <div style="flex: 1; min-width: 220px; background: white; padding: 15px; border: 1px solid #e2e8f0; border-radius: 3px; text-align: center;">
+                            <span class="response-label" style="margin-bottom: 8px; display: block;">Labor-Scan: paar4.jpg</span>
+                            <img src="Bilder/paar4.jpg" alt="Fingerabdruck Kapselmatch" style="width: 100%; height: auto; border: 1px solid #cbd5e0; border-radius: 2px;">
+                        </div>
                     </div>
                 </div>
             `,
@@ -555,7 +587,7 @@
                     </div>
                     <div class="response-section">
                         <span class="response-label">Befund:</span>
-                        <span class="response-value">Keine Fingerabdrücke oder sonstige Spuren direkt auf dem Material nachweisbar.</span>
+                        <span class="response-value">Keine Fingerabdrücke oder sonstige Spuren direkt auf dem material nachweisbar.</span>
                     </div>
                 </div>
             `,

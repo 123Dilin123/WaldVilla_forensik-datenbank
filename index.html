@@ -402,7 +402,7 @@
         // Passwort-Konfiguration
         const GLOBAL_PASSWORD = "18.05.2026_Waldvilla";
 
-        // Komplett neu aufgesetzte Datenbank basierend auf der bereitgestellten Tabelle
+        // Forensik-Datenbank
         const forensicDatabase = {
             "laborbericht zu asservat 1": `
                 <div class="system-response">
@@ -478,6 +478,27 @@
                     <div class="response-section">
                         <span class="response-label">Labor-Status:</span>
                         <span class="response-value">Ergebnisse verfügbar unter: <strong>Daktyloskopischer Befund #5</strong>.</span>
+                    </div>
+                </div>
+            `,
+            "daktyloskopischer befund #3": `
+                <div class="system-response">
+                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_03 &lt;&lt;</div>
+                    <div class="evidence-split">
+                        <div class="evidence-text">
+                            <div class="response-section">
+                                <span class="response-label">Profil:</span>
+                                <span class="response-value">Gesicherte Fingerabdrücke (Paar 3)</span>
+                            </div>
+                            <div class="response-section">
+                                <span class="response-label">Ergebnis:</span>
+                                <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters sowie auf der Visitenkarte der Detektei gesichert.</span>
+                            </div>
+                        </div>
+                        <div class="evidence-image-box">
+                            <span class="response-label">Labor-Scan (Paar 3)</span>
+                            <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
+                        </div>
                     </div>
                 </div>
             `,
@@ -754,8 +775,12 @@
             `,
 
             // ==========================================
-            // ALIASE / ALTERNATIVE SUCHBEGRIFFE (EXAKT NACH DEINER TABELLE)
+            // ALIASE / ALTERNATIVE SUCHBEGRIFFE 
             // ==========================================
+            "dok-02": "ALIAS:laborbericht (dok-02)",
+            "dok-01": "ALIAS:dok 1",
+            "dok-1": "ALIAS:dok 1",
+            
             "asservat 1": "ALIAS:laborbericht zu asservat 1",
             "kleidung finanzberaterin": "ALIAS:laborbericht zu asservat 1",
             "kostüm untersuchen": "ALIAS:laborbericht zu asservat 1",
@@ -799,7 +824,7 @@
         }
         setInterval(updateClock, 1000);
 
-        // Login-Logik (Passwortschutz aktiv)
+        // Login-Logik
         function tryLogin() {
             const passwordInput = document.getElementById('password-field').value;
             const errorDiv = document.getElementById('login-error');
@@ -819,7 +844,7 @@
             if (e.key === 'Enter') tryLogin();
         });
 
-        // Such-Logik
+        // Such-Logik (Eingaben werden automatisch kleingeschrieben)
         function executeSearch() {
             const searchField = document.getElementById('search-field');
             let query = searchField.value.trim().toLowerCase();
@@ -845,7 +870,7 @@
                             <div class="response-header" style="color: #9b2c2c; border-color: #9b2c2c;">[SYS-ERR: KEIN AKTENFUND]</div>
                             <p>Die Suchabfrage nach „<strong>${searchField.value}</strong>“ verlief im aktuellen Systemregister negativ.</p>
                             <p style="margin-top: 10px; font-size: 12px; color: #718096;">
-                                Mögliche Ursachen: Keine Freigabe für diese Soko-Stufe oder unvollständige Kennung. Überprüfen Sie den Spurentyp (z.B. „Asservat 1“ oder „Toxikologie Leiche“).
+                                Mögliche Ursachen: Keine Freigabe für diese Soko-Stufe oder unvollständige Kennung. Überprüfen Sie den Spurentyp (z.B. „Asservat 1“ oder „DOK-01“).
                             </p>
                         </div>
                     `;

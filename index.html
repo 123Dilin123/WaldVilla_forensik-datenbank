@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> FORENSIK-DATENBANK - POLIZEIDIREKTION WALDVILLA</title>
     <style>
-        /* Offizielles, behördliches Polizei-Design (Clean & Steril) */
         :root {
             --bg-color: #f4f6f9;
             --panel-bg: #ffffff;
@@ -361,7 +360,7 @@
                     <div class="metadata-label">Fall-Zugehörigkeit:</div>
                     <div>Sonderkommission SOKO „Waldvilla“</div>
                     <div class="metadata-label">System-Status:</div>
-                    <div>Abfrage-Modul active | Authentifiziert als Sondereinheit</div>
+                    <div>Abfrage-Modul active | Authentifiziert als Sovereign Unit</div>
                     <div class="metadata-label">Aktuelle Zeit:</div>
                     <div id="current-date">-</div>
                 </div>
@@ -389,494 +388,457 @@
     <script>
         const GLOBAL_PASSWORD = "18.05.2026_Waldvilla";
 
-        // Forensik-Datenbank (Daten-Zentralen)
-        const forensicDatabase = {
-            "laborbericht zu asservat 1": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ANALYSEBERICHT ASS_01 (KLEIDUNG) &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Gegenstand:</span>
-                        <span class="response-value">Abendkostüm/Kleidung der Finanzberaterin</span>
+        // NEUE STRUKTUR: Jeder Eintrag listet direkt seine Aliase/Keywords auf
+        const forensicDatabase = [
+            {
+                thema: "Laborbericht zu Asservat 1",
+                keywords: ["laborbericht zu asservat 1", "asservat 1", "ass1", "kleidung finanzberaterin", "kostuem", "kostüm", "kostüm untersuchen", "abendkostüm", "blutspritzer kleidung", "kleidung"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ANALYSEBERICHT ASS_01 (KLEIDUNG) &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Gegenstand:</span>
+                            <span class="response-value">Abendkostüm/Kleidung der Finanzberaterin</span>
+                        </div>
+                        <div class="response-section">
+                            <span class="response-label">Befund:</span>
+                            <span class="response-value">Die am eingereichten Gewebe gesicherten Blutspuren stammen gerichtsmedizinisch zweifelsfrei vom Opfer (Dr. Becker).</span>
+                        </div>
+                        <div class="response-section">
+                            <span class="response-label">Kriminaltechnische Besonderheit:</span>
+                            <span class="response-value">Die molekularbiologische Verteilung und das Gerinnungsverhalten der Blutspritzer zeigen keine dynamischen Abwehrmuster. Das Verteilungsmuster beweist wissenschaftlich, dass dieses Blut erst nach dem Eintritt des biologischen Todes (postmortal) durch stumpfe Gewalteinwirkung auf die Kleidung übertragen wurde. Als die Trägerin der Kleidung auf das Opfer einschlug, war dieses bereits biologisch tot.</span>
+                        </div>
                     </div>
-                    <div class="response-section">
-                        <span class="response-label">Befund:</span>
-                        <span class="response-value">Die am eingereichten Gewebe gesicherten Blutspuren stammen gerichtsmedizinisch zweifelsfrei vom Opfer (Dr. Becker).</span>
+                `
+            },
+            {
+                thema: "Laborbericht zu Asservat 2",
+                keywords: ["laborbericht zu asservat 2", "asservat 2", "ass2", "tablettenbox analysieren", "medikamentendosierer", "dosierbox vater", "herzkapseln manipulation", "tablettenbox"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ANATOMISCHER BEFUND ASS_02 (DOSIERBOX) &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Gegenstand:</span>
+                            <span class="response-value">Wöchentliches Medikamenten-Dosierkästchen aus der Sakkotasche des Opfers.</span>
+                        </div>
+                        <div class="response-section">
+                            <span class="response-label">Analyse-Ergebnisse:</span>
+                            <span class="response-value">
+                                1. Die vorgesehene Abend-Dosis für den Tattag ist vollständig gefüllt und unangetastet.<br><br>
+                                2. Die mikroskopische Untersuchung der Kapseln für die kommenden Wochentage ergab eine gezielte Sabotage: Zwei der Herzkapseln wurden geöffnet, entleert, vom Wirkstoff befreit und wirkstofflos wieder zusammengesteckt.<br><br>
+                                3. Auf den Gelatinewänden dieser manipulierten, leeren Kapseln wurde ein fragmentarischer Fingerabdruck gesichert. (Weiterführender Befehl: „Daktyloskopischer Befund #4.1“)
+                            </span>
+                        </div>
                     </div>
-                    <div class="response-section">
-                        <span class="response-label">Kriminaltechnische Besonderheit:</span>
-                        <span class="response-value">Die molekularbiologische Verteilung und das Gerinnungsverhalten der Blutspritzer zeigen keine dynamichen Abwehrmuster. Das Verteilungsmuster beweist wissenschaftlich, dass dieses Blut erst nach dem Eintritt des biologischen Todes (postmortal) durch stumpfe Gewalteinwirkung auf die Kleidung übertragen wurde. Als die Trägerin der Kleidung auf das Opfer einschlug, war dieses bereits biologisch tot.</span>
+                `
+            },
+            {
+                thema: "Laborbericht zu Asservat 3",
+                keywords: ["laborbericht zu asservat 3", "asservat 3", "ass3", "toxikologie leiche", "blutuntersuchung opfer", "leiche dr. becker", "herzinfarkt todesursache", "leichenfund", "leiche", "leichnam", "tot", "toxikologie", "gutachten leiche"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: TOXIKOLOGISCHES GUTACHTEN ASS_03 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Untersuchungstyp:</span>
+                            <span class="response-value">Toxikologische Analyse und Blutuntersuchung des Leichnams</span>
+                        </div>
+                        <div class="response-section">
+                            <span class="response-label">Ergebnis:</span>
+                            <span class="response-value">Im Blut des Opfers konnten keine Spuren von Fremdstoffen, Giften oder Überdosierungen nachgewiesen werden. Allerdings war der Spiegel seines lebenswichtigen Herzmedikaments kritisch niedrig, so als ob die Abend-Dosis nicht eingenommen wurde.</span>
+                        </div>
+                        <div class="response-section">
+                            <span class="response-label">Todesursache:</span>
+                            <span class="response-value">Der biologische Tod trat durch ein akutes, massives Herzversagen (Herzinfarkt) ein. Der Infarkt führte zu einem sofortigen Bewusstseinsverlust, woraufhin das Opfer ungebremst vorwärts stürzte und mit dem Kopf auf dem Beton-/Steinsockel aufschlug. Dieser Sturz zerschmetterte die Taschenuhr exakt im Moment des Aufpralls.</span>
+                        </div>
                     </div>
-                </div>
-            `,
-            "laborbericht zu asservat 2": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ANATOMISCHER BEFUND ASS_02 (DOSIERBOX) &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Gegenstand:</span>
-                        <span class="response-value">Wöchentliches Medikamenten-Dosierkästchen aus der Sakkotasche des Opfers.</span>
+                `
+            },
+            {
+                thema: "Dokumenten-Analyse DOK-01",
+                keywords: ["dok 1", "dok-01", "dok-1", "dok01", "notiz vater", "handschriftliche notiz", "testament aendern", "testament ändern", "notiz", "schreibunterlage"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DOKUMENTEN-ANALYSE DOK-01 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Inhalt:</span>
+                            <span class="response-value">Eine handschriftliche, persönliche Notiz des Opfers, die unordentlich auf der Schreibunterlage lag: „Testament unbedingt ändern! Nachdem sie von der Tagung wieder da sind!“ (DOK-01).</span>
+                        </div>
+                        <div class="response-section">
+                            <span class="response-label">Labor-Status:</span>
+                            <span class="response-value">Die Daten werden ins Labor geschickt und sind unter <strong>Daktyloskopischer Befund #4.2</strong> zu finden.</span>
+                        </div>
                     </div>
-                    <div class="response-section">
-                        <span class="response-label">Analyse-Ergebnisse:</span>
-                        <span class="response-value">
-                            1. Die vorgesehene Abend-Dosis für den Tattag ist vollständig gefüllt und unangetastet.<br><br>
-                            2. Die mikroskopische Untersuchung der Kapseln für die kommenden Wochentage ergab eine gezielte Sabotage: Zwei der Herzkapseln wurden geöffnet, entleert, vom Wirkstoff befreit und wirkstofflos wieder zusammengesteckt.<br><br>
-                            3. Auf den Gelatinewänden dieser manipulierten, leeren Kapseln wurde ein fragmentarischer Fingerabdruck gesichert. (Weiterführender Befehl: „Daktyloskopischer Befund #4.1“)
-                        </span>
+                `
+            },
+            {
+                thema: "Laborbericht DOK-02",
+                keywords: ["laborbericht (dok-02)", "dok-02", "dok02", "visitenkarte notar", "notariat", "gerda-becker", "visitenkarte notar gerda-becker"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DOKUMENTEN-ANALYSE DOK-02 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Inhalt:</span>
+                            <span class="response-value">Eine Visitenkarte Notariat Gerda-Becker</span>
+                        </div>
+                        <div class="response-section">
+                            <span class="response-label">Labor-Status:</span>
+                            <span class="response-value">Ergebnisse verfügbar unter: <strong>Daktyloskopischer Befund #5</strong>.</span>
+                        </div>
                     </div>
-                </div>
-            `,
-            "laborbericht zu asservat 3": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: TOXIKOLOGISCHES GUTACHTEN ASS_03 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Untersuchungstyp:</span>
-                        <span class="response-value">Toxikologische Analyse und Blutuntersuchung des Leichnams</span>
-                    </div>
-                    <div class="response-section">
-                        <span class="response-label">Ergebnis:</span>
-                        <span class="response-value">Im Blut des Opfers konnten keine Spuren von Fremdstoffen, Giften oder Überdosierungen nachgewiesen werden. Allerdings war der Spiegel seines lebenswichtigen Herzmedikaments kritisch niedrig wie wenn die Abend-Dosis nicht eingenommen wurde.</span>
-                    </div>
-                    <div class="response-section">
-                        <span class="response-label">Todesursache:</span>
-                        <span class="response-value">Der biologische Tod trat durch ein akutes, massives Herzversagen (Herzinfarkt) ein. Der Infarkt führte zu einem sofortigen Bewusstseinsverlust, woraufhin das Opfer ungebremst vorwärts stürzte und mit dem Kopf auf dem Beton-/Steinsockel aufschlug. Dieser Sturz zerschmetterte die Taschenuhr exakt im Moment des Aufpralls.</span>
-                    </div>
-                </div>
-            `,
-            "dok 1": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DOKUMENTEN-ANALYSE DOK-01 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Inhalt:</span>
-                        <span class="response-label">Eine handschriftliche, persönliche Notiz des Opfers, die unordentlich auf der Schreibunterlage lag: „Testament unbedingt ändern! Nachdem sie von der Tagung wieder da sind!“ (DOK-01).</span>
-                    </div>
-                    <div class="response-section">
-                        <span class="response-label">Labor-Status:</span>
-                        <span class="response-value">Die Daten werden ins Labor geschickt und sind unter <strong>Daktyloskopischer Befund #4.2</strong> zu finden.</span>
-                    </div>
-                </div>
-            `,
-            "laborbericht (dok-02)": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DOKUMENTEN-ANALYSE DOK-02 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Inhalt:</span>
-                        <span class="response-value">Eine Visitenkarte Notariat Gerda-Becker</span>
-                    </div>
-                    <div class="response-section">
-                        <span class="response-label">Labor-Status:</span>
-                        <span class="response-value">Ergebnisse verfügbar unter: <strong>Daktyloskopischer Befund #5</strong>.</span>
-                    </div>
-                </div>
-            `,
-            "daktyloskopischer befund #3": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_03 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Profil:</span>
-                                <span class="response-value">Gesicherte Fingerabdrücke (Paar 3)</span>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #1",
+                keywords: ["daktyloskopischer befund #1", "dak1", "fingerabdrücke bogen muster", "bogenmuster", "fingerabdruck bogenmuster"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK 01 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Ergebnis:</span>
+                                    <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters auf dem Schreibtisch gesichert sowie auf der Visitenkarte Dr. Becker.</span>
+                                </div>
                             </div>
-                            <div class="response-section">
-                                <span class="response-label">Ergebnis:</span>
-                                <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters sowie auf der Visitenkarte der Detektei gesichert.</span>
-                            </div>
-                        </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 3)</span>
-                            <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
-                        </div>
-                    </div>
-                </div>
-            `,
-            "daktyloskopischer befund #3.2": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #3.2 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Gegenstand:</span>
-                                <span class="response-value">Visitenkarte der Detektei gesicherte Fingerabdrücke</span>
-                            </div>
-                        </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 3)</span>
-                            <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
-                        </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 1)</span>
-                            <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
-                        </div>
-                    </div>
-                </div>
-            `,
-            "daktyloskopischer befund #1": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK 01 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Ergebnis:</span>
-                                <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters auf dem Schreibtisch gesichert sowie auf der Visitenkarte Dr. Becker.</span>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 1)</span>
+                                <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 1)</span>
-                            <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
-                        </div>
                     </div>
-                </div>
-            `,
-            "daktyloskopischer befund #2": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_02 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Ergebnis:</span>
-                                <span class="response-value">Die Fingerabdrücke finden sich im gesamten Gartenbereich und am Pavillon.</span>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #2",
+                keywords: ["daktyloskopischer befund #2", "dak2", "fingerabdrücke schleifen muster", "schleifenmuster", "garten pavillon", "pavillon", "garten"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_02 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Ergebnis:</span>
+                                    <span class="response-value">Die Fingerabdrücke finden sich im gesamten Gartenbereich und am Pavillon.</span>
+                                </div>
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 2)</span>
+                                <img src="Bilder/paar2.jpg" alt="Fingerabdruck Paar 2">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 2)</span>
-                            <img src="Bilder/paar2.jpg" alt="Fingerabdruck Paar 2">
-                        </div>
                     </div>
-                </div>
-            `,
-            "daktyloskopischer befund #3.": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK 03 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Ergebnis:</span>
-                                <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters sowie auf der Visitenkarte der Detektei gesichert.</span>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #3",
+                keywords: ["daktyloskopischer befund #3", "daktyloskopischer befund #3.", "dak3", "fingerabdrücke wirbelmuster", "wirbelmuster", "notiz des vaters", "visitenkarte detektei"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: REGISTERABGLEICH DAK_03 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Profil:</span>
+                                    <span class="response-value">Gesicherte Fingerabdrücke (Paar 3)</span>
+                                </div>
+                                <div class="response-section">
+                                    <span class="response-label">Ergebnis:</span>
+                                    <span class="response-value">Die Fingerabdrücke wurden auf der persönlichen Notiz des Vaters sowie auf der Visitenkarte der Detektei gesichert.</span>
+                                </div>
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 3)</span>
+                                <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 3)</span>
-                            <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
-                        </div>
                     </div>
-                </div>
-            `,
-            "daktyloskopischer befund #4.1": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #4.1 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Analyse:</span>
-                                <span class="response-value">Gezielte Auswertung der Tablettenbox-Kapseln. Gesicherte Fingerabdrücke extrahiert.</span>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #3.2",
+                keywords: ["daktyloskopischer befund #3.2", "visitenkarte der detektei gesicherte fingerabdrücke"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #3.2 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Gegenstand:</span>
+                                    <span class="response-value">Visitenkarte der Detektei gesicherte Fingerabdrücke</span>
+                                </div>
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 3)</span>
+                                <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 1)</span>
+                                <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 1)</span>
-                            <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
-                        </div>
                     </div>
-                </div>
-            `,
-            "daktyloskopischer befund #4.2": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #4.2 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Analyse:</span>
-                                <span class="response-value">Auswertung der handschriftlichen, persönlichen Notiz (DOK-01).</span>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #4.1",
+                keywords: ["daktyloskopischer befund #4.1", "tabletten kästchen", "tablettenkästchen", "dosierbox fingerabdruck"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #4.1 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Analyse:</span>
+                                    <span class="response-value">Gezielte Auswertung der Tablettenbox-Kapseln. Gesicherte Fingerabdrücke extrahiert.</span>
+                                </div>
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 1)</span>
+                                <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 3)</span>
-                            <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
-                        </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 1)</span>
-                            <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
-                        </div>
                     </div>
-                </div>
-            `,
-            "daktyloskopischer befund #5": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #5 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Analyse:</span>
-                                <span class="response-value">Auswertung der Visitenkarte des Notariats Gerda-Becker (DOK-02). Spurensicherung abgeschlossen.</span>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #4.2",
+                keywords: ["daktyloskopischer befund #4.2", "analyse persönliche notiz", "notiz fingerabdruck"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #4.2 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Analyse:</span>
+                                    <span class="response-value">Auswertung der handschriftlichen, persönlichen Notiz (DOK-01).</span>
+                                </div>
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 3)</span>
+                                <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 1)</span>
+                                <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 3)</span>
-                            <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
-                        </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 1)</span>
-                            <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
-                        </div>
                     </div>
-                </div>
-            `,
-            "daktyloskopischer befund #6": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: FORENSISCHER MATCH / SPURENSICHERUNG &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Gegenstand:</span>
-                                <span class="response-value">Fragmentarische Abdrücke auf den manipulierten Gelatinekapseln aus der Tablettenbox des Vaters (Asservat 2).</span>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #5",
+                keywords: ["daktyloskopischer befund #5", "analyse visitenkarte detektei", "visitenkarte fingerabdruck", "detektei spur"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #5 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Analyse:</span>
+                                    <span class="response-value">Auswertung der Visitenkarte des Notariats Gerda-Becker (DOK-02). Spurensicherung abgeschlossen.</span>
+                                </div>
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 3)</span>
+                                <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 1)</span>
+                                <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 1)</span>
-                            <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
-                        </div>
                     </div>
-                </div>
-            `,
-            "daktyloskopischer befund #7": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #7 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Befund:</span>
-                        <span class="response-value">Auf der Brandwunde ist ein schwaches Muster zu erkennen.</span>
-                    </div>
-                </div>
-            `,
-            "untersuchung taschenuhrgeg_01": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: MECHANISCHE PRÜFUNG GEG_01 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Gegenstand:</span>
-                                <span class="response-value">Mechanische Taschenuhr des Opfers.</span>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #6",
+                keywords: ["daktyloskopischer befund #6", "fingerabdrücke kapseln", "spur tablettenbox", "gelatinekapseln", "kapseln fingerabdruck"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: FORENSISCHER MATCH / SPURENSICHERUNG &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Gegenstand:</span>
+                                    <span class="response-value">Fragmentarische Abdrücke auf den manipulierten Gelatinekapseln aus der Tablettenbox des Vaters (Asservat 2).</span>
+                                </div>
                             </div>
-                            <div class="response-section">
-                                <span class="response-label">Befund:</span>
-                                <span class="response-value">Das Gehäuse und das Glas sind durch eine massive, punktuelle Krafteinwirkung von außen vollständig zersplittert. Das mechanische Zahnradwerk wurde durch die Wucht der Erschütterung sofort blockiert und dauerhaft deformiert.</span>
-                            </div>
-                            <div class="response-section">
-                                <span class="response-label">Zeitbestimmung:</span>
-                                <span class="response-value">Die Zeiger stehen unverrückbar auf exakt 20:12 Uhr. Dies markiert unumstößlich den exakten Sekundensekunde des Aufpralls auf den Betonsockel im Garten.</span>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 1)</span>
+                                <img src="Bilder/paar1.jpg" alt="Fingerabdruck Paar 1">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 4)</span>
-                            <img src="Bilder/paar4.jpg" alt="Uhr-Sicherung Paar 4">
+                    </div>
+                `
+            },
+            {
+                thema: "Daktyloskopischer Befund #7",
+                keywords: ["daktyloskopischer befund #7", "asservat 5 + brandwunde beraterin", "brandwunde muster", "brandwunde beraterin"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: DAKTYLOSKOPISCHER BEFUND #7 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Befund:</span>
+                            <span class="response-value">Auf der Brandwunde ist ein schwaches Muster zu erkennen.</span>
                         </div>
                     </div>
-                </div>
-            `,
-            "gehstock asservat 4": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: GEHSTOCK ASSERVAT 4 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Befund:</span>
-                        <span class="response-value">Gehstock, keine Fingerabdrücke oder sonstige Spuren.</span>
-                    </div>
-                </div>
-            `,
-            "asservat 5": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ASSERVAT 5 &lt;&lt;</div>
-                    <div class="evidence-split">
-                        <div class="evidence-text">
-                            <div class="response-section">
-                                <span class="response-label">Gegenstand:</span>
-                                <span class="response-value">Verbannte Akte.</span>
+                `
+            },
+            {
+                thema: "Mechanische Prüfung GEG_01",
+                keywords: ["untersuchung taschenuhrgeg_01", "taschenuhr analysieren", "uhrwerk prüfen", "geg_01", "taschenuhr beschädigung", "uhrzeit 20:12", "kaputte uhr", "taschenuhr", "uhr", "uhrzeit"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: MECHANISCHE PRÜFUNG GEG_01 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Gegenstand:</span>
+                                    <span class="response-value">Mechanische Taschenuhr des Opfers.</span>
+                                </div>
+                                <div class="response-section">
+                                    <span class="response-label">Befund:</span>
+                                    <span class="response-value">Das Gehäuse und das Glas sind durch eine massive, punktuelle Krafteinwirkung von außen vollständig zersplittert. Das mechanische Zahnradwerk wurde durch die Wucht der Erschütterung sofort blockiert und dauerhaft deformiert.</span>
+                                </div>
+                                <div class="response-section">
+                                    <span class="response-label">Zeitbestimmung:</span>
+                                    <span class="response-value">Die Zeiger stehen unverrückbar auf exakt 20:12 Uhr. Dies markiert unumstößlich den exakten Moment des Aufpralls auf den Betonsockel im Garten.</span>
+                                </div>
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 4)</span>
+                                <img src="Bilder/paar4.jpg" alt="Uhr-Sicherung Paar 4">
                             </div>
                         </div>
-                        <div class="evidence-image-box">
-                            <span class="response-label">Labor-Scan (Paar 3)</span>
-                            <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
+                    </div>
+                `
+            },
+            {
+                thema: "Gehstock Asservat 4",
+                keywords: ["gehstock asservat 4", "gehstock", "asservat 4", "spuren gehstock"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: GEHSTOCK ASSERVAT 4 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Befund:</span>
+                            <span class="response-value">Gehstock, keine Fingerabdrücke oder sonstige Spuren.</span>
                         </div>
                     </div>
-                </div>
-            `,
-            "asservat 6": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ASSERVAT 6 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Laborbefund:</span>
-                        <span class="response-value">Kapsel enthält starkes Schlafmittel.</span>
+                `
+            },
+            {
+                thema: "Asservat 5",
+                keywords: ["asservat 5", "verbannte akte", "verbrannte akte", "akte"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ASSERVAT 5 &lt;&lt;</div>
+                        <div class="evidence-split">
+                            <div class="evidence-text">
+                                <div class="response-section">
+                                    <span class="response-label">Gegenstand:</span>
+                                    <span class="response-value">Verbrannte Akte.</span>
+                                </div>
+                            </div>
+                            <div class="evidence-image-box">
+                                <span class="response-label">Labor-Scan (Paar 3)</span>
+                                <img src="Bilder/paar3.jpg" alt="Fingerabdruck Paar 3">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            `,
-            "asservat 7": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ASSERVAT 7 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Laborbefund:</span>
-                        <span class="response-value">Kapsel enthält starkes Schlafmittel.</span>
+                `
+            },
+            {
+                thema: "Asservat 6",
+                keywords: ["asservat 6", "schlafmittel kapsel 6"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ASSERVAT 6 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Laborbefund:</span>
+                            <span class="response-value">Kapsel enthält starkes Schlafmittel.</span>
+                        </div>
                     </div>
-                </div>
-            `,
-            "blutuntersuchung 1": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: LABORMEDIZINISCHE BLUTUNTERSUCHUNG 1 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Ergebnis:</span>
-                        <span class="response-value">Im Blut lassen sich große Mengen eines Schlafmittels und Alkohol nachweisen.</span>
+                `
+            },
+            {
+                thema: "Asservat 7",
+                keywords: ["asservat 7", "schlafmittel kapsel 7"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ASSERVAT 7 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Laborbefund:</span>
+                            <span class="response-value">Kapsel enthält starkes Schlafmittel.</span>
+                        </div>
                     </div>
-                </div>
-            `,
-            "kamera 1": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: VIDEO-ANALYSE KAMERA 1 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Auswertung:</span>
-                        <span class="response-value">Ein Abruf der Serverdaten zeigt: Die Kamera filmte die Hauptstraße und die Einfahrt, nicht aber den hinteren Gartenbereich. Die Log-Daten bestätigen, dass der Wagen der Beraterin den Parkplatz während der kritischen Tatzeit nicht verlassen hat.</span>
+                `
+            },
+            {
+                thema: "Labormedizinische Blutuntersuchung 1",
+                keywords: ["blutuntersuchung 1", "alkohol schlafmittel blut", "blutalkohol"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: LABORMEDIZINISCHE BLUTUNTERSUCHUNG 1 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Ergebnis:</span>
+                            <span class="response-value">Im Blut lassen sich große Mengen eines Schlafmittels und Alkohol nachweisen.</span>
+                        </div>
                     </div>
-                </div>
-            `,
-            "telefon 1": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: VERBINDUNGSDATEN TELEFON 1 &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Protokoll:</span>
-                        <span class="response-value">Telefonat von 20:09 Uhr - 20:18 Uhr.</span>
+                `
+            },
+            {
+                thema: "Video-Analyse Kamera 1",
+                keywords: ["kamera 1", "videoüberwachung", "videoueberwachung", "serverdaten einfahrt", "einfahrt", "kamera", "video"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: VIDEO-ANALYSE KAMERA 1 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Auswertung:</span>
+                            <span class="response-value">Ein Abruf der Serverdaten zeigt: Die Kamera filmte die Hauptstraße und die Einfahrt, nicht aber den hinteren Gartenbereich. Die Log-Daten bestätigen, dass der Wagen der Beraterin den Parkplatz während der kritischen Tatzeit nicht verlassen hat.</span>
+                        </div>
                     </div>
-                </div>
-            `,
-            "kombinationgehstock_leiche": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ANATOMISCHER QUERABGLEICH &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Abgleich:</span>
-                        <span class="response-value">Abdruck der Wunde stimmt mit Muster und Größe des Gehstocks überein.</span>
+                `
+            },
+            {
+                thema: "Verbindungsdaten Telefon 1",
+                keywords: ["telefon 1", "verbindungsdaten anruf", "protokoll telefonat", "telefon", "anruf"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: VERBINDUNGSDATEN TELEFON 1 &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Protokoll:</span>
+                            <span class="response-value">Telefonat von 20:09 Uhr - 20:18 Uhr.</span>
+                        </div>
                     </div>
-                </div>
-            `,
-            "kombination_wunde_knauf": `
-                <div class="system-response">
-                    <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: BIOMECHANISCHER BEFUND &lt;&lt;</div>
-                    <div class="response-section">
-                        <span class="response-label">Ergebnis:</span>
-                        <span class="response-value">Die Wunden auf der Hand passen zum Muster des Gehstock Knaufs.</span>
+                `
+            },
+            {
+                thema: "Anatomischer Querabgleich (Kombination)",
+                keywords: ["gehstock + leiche", "gehstock + wunde", "asservat 4+ wunde", "asservat 4 + leiche", "gehstock wunden abgleich", "leiche + gehstock", "wunde + gehstock"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: ANATOMISCHER QUERABGLEICH &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Abgleich:</span>
+                            <span class="response-value">Abdruck der Wunde stimmt mit Muster und Größe des Gehstocks überein.</span>
+                        </div>
                     </div>
-                </div>
-            `,
-
-            // ==========================================
-            // ALIASE UND VARIATIONEN (FÜR FLEXIBLE SUCHE)
-            // ==========================================
-            "dok-02": "ALIAS:laborbericht (dok-02)",
-            "dok02": "ALIAS:laborbericht (dok-02)",
-            "visitenkarte notar": "ALIAS:laborbericht (dok-02)",
-            "notariat": "ALIAS:laborbericht (dok-02)",
-            "gerda-becker": "ALIAS:laborbericht (dok-02)",
-            
-            "dok-01": "ALIAS:dok 1",
-            "dok-1": "ALIAS:dok 1",
-            "dok01": "ALIAS:dok 1",
-            "notiz vater": "ALIAS:dok 1",
-            "handschriftliche notiz": "ALIAS:dok 1",
-            "testament ändern": "ALIAS:dok 1",
-            
-            "asservat 1": "ALIAS:laborbericht zu asservat 1",
-            "ass1": "ALIAS:laborbericht zu asservat 1",
-            "kleidung finanzberaterin": "ALIAS:laborbericht zu asservat 1",
-            "kostüm untersuchen": "ALIAS:laborbericht zu asservat 1",
-            "abendkostüm": "ALIAS:laborbericht zu asservat 1",
-            "blutspritzer kleidung": "ALIAS:laborbericht zu asservat 1",
-            
-            "asservat 2": "ALIAS:laborbericht zu asservat 2",
-            "ass2": "ALIAS:laborbericht zu asservat 2",
-            "tablettenbox analysieren": "ALIAS:laborbericht zu asservat 2",
-            "medikamentendosierer": "ALIAS:laborbericht zu asservat 2",
-            "dosierbox vater": "ALIAS:laborbericht zu asservat 2",
-            "herzkapseln manipulation": "ALIAS:laborbericht zu asservat 2",
-            
-            "asservat 3": "ALIAS:laborbericht zu asservat 3",
-            "ass3": "ALIAS:laborbericht zu asservat 3",
-            "toxikologie leiche": "ALIAS:laborbericht zu asservat 3",
-            "blutuntersuchung opfer": "ALIAS:laborbericht zu asservat 3",
-            "leiche dr. becker": "ALIAS:laborbericht zu asservat 3",
-            "herzinfarkt todesursache": "ALIAS:laborbericht zu asservat 3",
-            "leichenfund": "ALIAS:laborbericht zu asservat 3",
-            "leiche": "ALIAS:laborbericht zu asservat 3",
-            "leichnam": "ALIAS:laborbericht zu asservat 3",
-            "tot": "ALIAS:laborbericht zu asservat 3",
-            
-            "fingerabdrücke bogen muster": "ALIAS:daktyloskopischer befund #1",
-            "bogenmuster": "ALIAS:daktyloskopischer befund #1",
-            "dak1": "ALIAS:daktyloskopischer befund #1",
-            
-            "fingerabdrücke schleifen muster": "ALIAS:daktyloskopischer befund #2",
-            "schleifenmuster": "ALIAS:daktyloskopischer befund #2",
-            "dak2": "ALIAS:daktyloskopischer befund #2",
-            "garten pavillon": "ALIAS:daktyloskopischer befund #2",
-            
-            "fingerabdrücke wirbelmuster": "ALIAS:daktyloskopischer befund #3.",
-            "wirbelmuster": "ALIAS:daktyloskopischer befund #3.",
-            "dak3": "ALIAS:daktyloskopischer befund #3.",
-            
-            "daktyloskopischer befund #3": "ALIAS:daktyloskopischer befund #3",
-            
-            "tabletten kästchen": "ALIAS:daktyloskopischer befund #4.1",
-            "dosierbox fingerabdruck": "ALIAS:daktyloskopischer befund #4.1",
-            
-            "analyse persönliche notiz": "ALIAS:daktyloskopischer befund #4.2",
-            "notiz fingerabdruck": "ALIAS:daktyloskopischer befund #4.2",
-            
-            "analyse visitenkarte detektei": "ALIAS:daktyloskopischer befund #5",
-            "visitenkarte fingerabdruck": "ALIAS:daktyloskopischer befund #5",
-            "detektei spur": "ALIAS:daktyloskopischer befund #5",
-            
-            "fingerabdrücke kapseln": "ALIAS:daktyloskopischer befund #6",
-            "spur tablettenbox": "ALIAS:daktyloskopischer befund #6",
-            "gelatinekapseln": "ALIAS:daktyloskopischer befund #6",
-            
-            "taschenuhr analysieren": "ALIAS:untersuchung taschenuhrgeg_01",
-            "uhrwerk prüfen": "ALIAS:untersuchung taschenuhrgeg_01",
-            "geg_01": "ALIAS:untersuchung taschenuhrgeg_01",
-            "taschenuhr beschädigung": "ALIAS:untersuchung taschenuhrgeg_01",
-            "uhrzeit 20:12": "ALIAS:untersuchung taschenuhrgeg_01",
-            "kaputte uhr": "ALIAS:untersuchung taschenuhrgeg_01",
-            "taschenuhr": "ALIAS:untersuchung taschenuhrgeg_01",
-            "uhr": "ALIAS:untersuchung taschenuhrgeg_01",
-            
-            "gehstock + leiche": "ALIAS:kombinationgehstock_leiche",
-            "gehstock + wunde": "ALIAS:kombinationgehstock_leiche",
-            "asservat 4+ wunde": "ALIAS:kombinationgehstock_leiche",
-            "asservat 4 + leiche": "ALIAS:kombinationgehstock_leiche",
-            "gehstock wunden abgleich": "ALIAS:kombinationgehstock_leiche",
-            
-            "brandwunde beraterin + knauf von gehstock": "ALIAS:kombination_wunde_knauf",
-            "brandwunde knauf": "ALIAS:kombination_wunde_knauf",
-            "wunden hand muster": "ALIAS:kombination_wunde_knauf",
-            
-            "asservat 5 + brandwunde beraterin": "ALIAS:daktyloskopischer befund #7",
-            "brandwunde muster": "ALIAS:daktyloskopischer befund #7",
-            
-            "gehstock asservat 4": "ALIAS:gehstock asservat 4",
-            "asservat 4": "ALIAS:gehstock asservat 4",
-            "spuren gehstock": "ALIAS:gehstock asservat 4",
-            
-            "asservat 5": "ALIAS:asservat 5",
-            "verbannte akte": "ALIAS:asservat 5",
-            
-            "asservat 6": "ALIAS:asservat 6",
-            "schlafmittel kapsel 6": "ALIAS:asservat 6",
-            
-            "asservat 7": "ALIAS:asservat 7",
-            "schlafmittel kapsel 7": "ALIAS:asservat 7",
-            
-            "blutuntersuchung 1": "ALIAS:blutuntersuchung 1",
-            "alkohol schlafmittel blut": "ALIAS:blutuntersuchung 1",
-            
-            "kamera 1": "ALIAS:kamera 1",
-            "videoüberwachung": "ALIAS:kamera 1",
-            "serverdaten einfahrt": "ALIAS:kamera 1",
-            
-            "telefon 1": "ALIAS:telefon 1",
-            "verbindungsdaten anruf": "ALIAS:telefon 1",
-            "protokoll telefonat": "ALIAS:telefon 1"
-        };
+                `
+            },
+            {
+                thema: "Biomechanischer Befund (Kombination)",
+                keywords: ["brandwunde beraterin + knauf von gehstock", "brandwunde knauf", "wunden hand muster", "knauf", "brandwunde + knauf"],
+                inhalt: `
+                    <div class="system-response">
+                        <div class="response-header">&gt;&gt; SYSTEM-AUSGABE: BIOMECHANISCHER BEFUND &lt;&lt;</div>
+                        <div class="response-section">
+                            <span class="response-label">Ergebnis:</span>
+                            <span class="response-value">Die Wunden auf der Hand passen zum Muster des Gehstock-Knaufs.</span>
+                        </div>
+                    </div>
+                `
+            }
+        ];
 
         function updateClock() {
             const now = new Date();
@@ -903,18 +865,17 @@
             if (e.key === 'Enter') tryLogin();
         });
 
-        // HILFSFUNKTION: Text für die Suche normalisieren (Umlaute ersetzen, Kleinschreibung)
+        // Bereinigt die Eingaben radikal, damit Tippfehler und Umlaute egal sind
         function normalizeText(text) {
             return text.toLowerCase()
                        .replace(/ä/g, "ae")
                        .replace(/ö/g, "oe")
                        .replace(/ü/g, "ue")
                        .replace(/ß/g, "ss")
-                       .replace(/[^a-z0-9\s\-_+#.]/g, "") // Entfernt störende Sonderzeichen
+                       .replace(/[^a-z0-9\s\-_+#.]/g, "")
                        .trim();
         }
 
-        // DIE REVOLUTIONIERTE, SUPER FLEXIBLE GEHIRN-LOGIK DER SUCHE
         function executeSearch() {
             const searchField = document.getElementById('search-field');
             const originalQuery = searchField.value;
@@ -926,47 +887,38 @@
             outputPanel.innerHTML = '<div class="output-placeholder">Verbinde mit Zentralregister... Bitte warten...</div>';
             
             setTimeout(() => {
-                let foundKey = null;
+                let gefundenerBericht = null;
 
-                // Datenbank-Keys für die Suche vorbereiten (Normalisiertes Mapping erstellen)
-                const normalizedDb = {};
-                for (const key in forensicDatabase) {
-                    normalizedDb[normalizeText(key)] = key;
-                }
-
-                // LEVEL 1: Direktes Matching mit dem normalisierten Begriff
-                if (normalizedDb[normalizedQuery]) {
-                    foundKey = normalizedDb[normalizedQuery];
-                }
-
-                // LEVEL 2: Wenn kein direkter Match, zerlege die Spielereingabe in Einzelwörter (Fuzzy-Search)
-                if (!foundKey) {
-                    const queryWords = normalizedQuery.split(/\s+/).filter(w => w.length > 2); // Nur Wörter mit mehr als 2 Zeichen nutzen
+                // Durchsuche alle Berichte im Array
+                for (const eintrag of forensicDatabase) {
+                    // Schaut nach, ob die bereinigte Eingabe EXAKT einem der definierten Keywords entspricht
+                    const hatExaktenTreffer = eintrag.keywords.map(k => normalizeText(k)).includes(normalizedQuery);
                     
-                    for (const dbKeyNorm in normalizedDb) {
-                        // Prüfen, ob eines der eingegebenen Wörter im Datenbank-Key steckt...
-                        const wordMatch = queryWords.some(word => dbKeyNorm.includes(word));
-                        // ...oder ob das komplette eingegebene Suchwort den DB-Key beinhaltet
-                        if (wordMatch || dbKeyNorm.includes(normalizedQuery) || normalizedQuery.includes(dbKeyNorm)) {
-                            foundKey = normalizedDb[dbKeyNorm];
-                            break; 
+                    if (hatExaktenTreffer) {
+                        gefundenerBericht = eintrag;
+                        break; // Sofort stoppen bei klarem Treffer!
+                    }
+                }
+
+                // Falls kein exakter Match da war, machen wir eine weichere Wort-Teilsuche
+                if (!gefundenerBericht) {
+                    for (const eintrag of forensicDatabase) {
+                        const keywordMatch = eintrag.keywords.some(k => {
+                            const normKeyword = normalizeText(k);
+                            return normKeyword.includes(normalizedQuery) || normalizedQuery.includes(normKeyword);
+                        });
+
+                        if (keywordMatch) {
+                            gefundenerBericht = eintrag;
+                            break;
                         }
                     }
                 }
 
-                // Wenn ein Treffer erzielt wurde, ausgeben
-                if (foundKey) {
-                    let result = forensicDatabase[foundKey];
-                    
-                    // Falls der gefundene Key ein Alias ist, dem echten Bericht folgen
-                    if (result.startsWith("ALIAS:")) {
-                        const targetKey = result.replace("ALIAS:", "");
-                        result = forensicDatabase[targetKey];
-                    }
-                    
-                    outputPanel.innerHTML = result;
+                // Ergebnisausgabe
+                if (gefundenerBericht) {
+                    outputPanel.innerHTML = gefundenerBericht.inhalt;
                 } else {
-                    // Fehlermeldung, wenn absolut gar nichts passt
                     outputPanel.innerHTML = `
                         <div class="system-response system-error-box">
                             <div class="response-header" style="color: #9b2c2c; border-color: #9b2c2c;">[SYS-ERR: KEIN AKTENFUND]</div>
@@ -977,7 +929,7 @@
                         </div>
                     `;
                 }
-            }, 450);
+            }, 300);
         }
 
         document.getElementById('search-field').addEventListener('keypress', function (e) {
